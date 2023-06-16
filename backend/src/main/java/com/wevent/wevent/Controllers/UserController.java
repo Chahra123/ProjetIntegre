@@ -1,5 +1,6 @@
 package com.wevent.wevent.Controllers;
 
+
 import com.wevent.wevent.Entities.ERole;
 import com.wevent.wevent.Entities.Utilisateur;
 import com.wevent.wevent.Services.IUserService;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("crudusers")
 public class UserController {
     IUserService userService;
 
@@ -28,12 +30,6 @@ public class UserController {
         return userService.getUser(userId);
     }
 
-    @PostMapping("/user/save")
-    public ResponseEntity<?> saveUser(@RequestBody Utilisateur utilisateur)
-    {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.addUser(utilisateur));
-    }
     @PutMapping("/users/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody Utilisateur utilisateur)
     {

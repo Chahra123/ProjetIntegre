@@ -1,6 +1,9 @@
 package com.wevent.wevent.Entities;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,7 +20,7 @@ import java.util.*;
 @Table(name = "users",uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 @DiscriminatorValue(value = "User")
 @EqualsAndHashCode
-public class Utilisateur implements Serializable{
+public class Utilisateur implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUtilisateur;
@@ -71,9 +74,7 @@ public class Utilisateur implements Serializable{
                        ERole role,
                        String motDePasse,
                        Date dateNaissance,
-                       Long numTel,
-                       Boolean locked,
-                       Boolean enabled) {
+                       Long numTel) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
@@ -81,8 +82,6 @@ public class Utilisateur implements Serializable{
         this.motDePasse = motDePasse;
         this.dateNaissance = dateNaissance;
         this.numTel = numTel;
-        this.locked = locked;
-        this.enabled = enabled;
     }
 
     public Utilisateur(String prenom, String nom, String email, ERole role, String motDePasse) {
@@ -91,5 +90,42 @@ public class Utilisateur implements Serializable{
         this.email = email;
         this.role = role;
         this.motDePasse = motDePasse;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority simpleGrantedAuthority =
+                new SimpleGrantedAuthority(role.name());
+        return Collections.singletonList(simpleGrantedAuthority);
+    }
+
+    @Override
+    public String getPassword() {
+        return motDePasse;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return !false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 }

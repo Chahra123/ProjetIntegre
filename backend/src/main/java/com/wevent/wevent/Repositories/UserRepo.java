@@ -18,4 +18,10 @@ public interface UserRepo extends JpaRepository<Utilisateur,Long> {
             nativeQuery = true)
     Utilisateur findByEmail11(String email);
 
+    @Transactional
+    @Modifying
+    @Query(
+            value = "UPDATE users SET users.enabled = TRUE WHERE users.email = ?1",
+            nativeQuery = true)
+    int enableUser(String email);
 }
