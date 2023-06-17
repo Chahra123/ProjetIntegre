@@ -68,6 +68,9 @@ public class Utilisateur implements Serializable, UserDetails {
     @OneToMany(mappedBy = "utilisateur")
     Set<Reservation> reservations = new HashSet<>();
 
+    @ManyToMany(mappedBy = "utilisateurs")
+    Set<Notification> notifications = new HashSet<>();
+
     public Utilisateur(String prenom,
                        String nom,
                        String email,
