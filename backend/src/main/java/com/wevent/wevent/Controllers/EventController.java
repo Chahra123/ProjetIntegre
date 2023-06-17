@@ -26,7 +26,7 @@ public class EventController {
     }
 
     @PostMapping
-    ResponseEntity<?> addEvent(Evenement evenement)
+    Evenement addEvent(Evenement evenement)
     {
         return iEventService.addEvent(evenement);
     }
