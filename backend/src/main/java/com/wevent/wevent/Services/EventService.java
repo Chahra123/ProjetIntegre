@@ -59,6 +59,5 @@ public class EventService implements IEventService{
     @Override
     public ResponseEntity<?> addEvent(Evenement evenement) {
         eventRepo.save(evenement);
-        return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));
-    }
+        return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));}
 }

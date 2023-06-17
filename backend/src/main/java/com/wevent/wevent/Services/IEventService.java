@@ -14,4 +14,5 @@ public interface IEventService {
     void deleteEvent(Long eventId);
 
     ResponseEntity<?> addEvent(Evenement evenement);
+
 }
