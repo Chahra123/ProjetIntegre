@@ -21,5 +21,6 @@ public class Reservation implements Serializable {
 
     @ManyToOne
     Evenement evenement;
+
     Boolean statutReservation;
 }
