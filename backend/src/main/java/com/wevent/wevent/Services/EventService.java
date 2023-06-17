@@ -19,24 +19,24 @@ public class EventService implements IEventService{
         return eventRepo.findAll();
     }
 
-    @Override
-    public Evenement getEvent(Long eventId) {
+
+    public ResponseEntity<MessageResponse> getEvent(Long eventId) {
         Evenement e = eventRepo.findById(eventId).orElse(null);
         if(e==null)
         {
-            //return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-              //      .body(new MessageResponse("Evénement introuvable"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse("Evénement introuvable"));
         }
-        return e;
+        return ResponseEntity.ok().body(new MessageResponse("Voici l'événement: "+e));
     }
 
     @Override
-    public Evenement updateEvent(Long eventId, Evenement eventDetails) {
+    public ResponseEntity<?> updateEvent(Long eventId, Evenement eventDetails) {
         Evenement evenement = eventRepo.findById(eventId).orElse(null);
         if (evenement==null)
         {
-            //return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-              //      .body(new MessageResponse("Evénement introuvable"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse("Evénement introuvable"));
         }
 
         evenement.setNomEvenement(eventDetails.getNomEvenement());
@@ -48,8 +48,8 @@ public class EventService implements IEventService{
         evenement.setPrix(eventDetails.getPrix());
         evenement.setStatut(eventDetails.getStatut());
         eventRepo.save(evenement);
-        //return ResponseEntity.ok().body(new MessageResponse("Evenement mis à jour avec succès"));
-        return evenement;
+        return ResponseEntity.ok().body(new MessageResponse("Evenement mis à jour avec succès"));
+
     }
 
     @Override
@@ -58,9 +58,9 @@ public class EventService implements IEventService{
     }
 
     @Override
-    public Evenement addEvent(Evenement evenement) {
+
+    public ResponseEntity<?> addEvent(Evenement evenement) {
         eventRepo.save(evenement);
-        //return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));
-        return evenement;
+        return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));
     }
 }

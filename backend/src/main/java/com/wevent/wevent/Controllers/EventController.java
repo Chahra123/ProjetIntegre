@@ -21,18 +21,19 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}")
-    public Evenement getEvent(@PathVariable Long eventId) {
+
+    public ResponseEntity<MessageResponse> getEvent(@PathVariable Long eventId) {
             return iEventService.getEvent(eventId);
     }
 
     @PostMapping
-    Evenement addEvent(@RequestBody Evenement evenement)
+    ResponseEntity<?> addEvent(Evenement evenement)
     {
         return iEventService.addEvent(evenement);
     }
 
     @PutMapping("/{eventId}")
-    public Evenement updateEvent(@PathVariable Long eventId, @RequestBody Evenement eventDetails)
+    public ResponseEntity<?> updateEvent(@PathVariable Long eventId, @RequestBody Evenement eventDetails)
     {
         return iEventService.updateEvent(eventId,eventDetails);
     }
