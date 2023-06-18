@@ -54,8 +54,15 @@ public class EventService implements IEventService{
     }
 
     @Override
-    public void deleteEvent(Long eventId) {
-        eventRepo.deleteById(eventId);
+    public ResponseEntity<?> deleteEvent(Long eventId) {
+        Evenement evenement = eventRepo.findById(eventId).orElse(null);
+        if(evenement==null)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new MessageResponse("Evénement introuvable"));
+        }
+                eventRepo.deleteById(eventId);
+        return ResponseEntity.ok().body(new MessageResponse("Evenement supprimé avec succès"));
     }
 
     @Override

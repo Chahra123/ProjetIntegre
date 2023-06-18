@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.sql.Array;
 import java.util.*;
 
 @Data
@@ -36,8 +37,10 @@ public class Utilisateur implements Serializable, UserDetails {
     private String email;
 
     //@NotEmpty(message="Role obligatoire")
-    @Enumerated(EnumType.STRING)
-    private ERole role;
+    //@Enumerated(EnumType.STRING)
+    //private ERole role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
     @NotBlank(message = "Mot de passe obligatoire")
     @Size(max=1000, message ="La taille du mot de passe ne doit pas depasser les 1500 caractères")
@@ -68,38 +71,31 @@ public class Utilisateur implements Serializable, UserDetails {
     @OneToMany(mappedBy = "utilisateur")
     Set<Reservation> reservations = new HashSet<>();
 
-    @ManyToMany(mappedBy = "utilisateurs")
-    Set<Notification> notifications = new HashSet<>();
-
-    public Utilisateur(String prenom,
-                       String nom,
-                       String email,
-                       ERole role,
-                       String motDePasse,
-                       Date dateNaissance,
-                       Long numTel) {
+    public Utilisateur(Long idUtilisateur, String prenom, String nom, String email, Collection<Role> roles, String motDePasse) {
+        this.idUtilisateur = idUtilisateur;
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
-        this.role = role;
+        this.roles = roles;
+        this.motDePasse = motDePasse;
+    }
+
+    public Utilisateur(String prenom, String nom, String email, Collection<Role> roles, String motDePasse, Date dateNaissance, Long numTel) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.roles = roles;
         this.motDePasse = motDePasse;
         this.dateNaissance = dateNaissance;
         this.numTel = numTel;
     }
 
-    public Utilisateur(String prenom, String nom, String email, ERole role, String motDePasse) {
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-        this.role = role;
-        this.motDePasse = motDePasse;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority =
+        /*SimpleGrantedAuthority simpleGrantedAuthority =
                 new SimpleGrantedAuthority(role.name());
-        return Collections.singletonList(simpleGrantedAuthority);
+        return Collections.singletonList(simpleGrantedAuthority);*/
+        return null;
     }
 
     @Override

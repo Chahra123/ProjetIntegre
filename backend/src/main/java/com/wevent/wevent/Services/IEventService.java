@@ -11,7 +11,7 @@ public interface IEventService {
     List<Evenement> getEvents();
     ResponseEntity<MessageResponse> getEvent(Long eventId);
     ResponseEntity<?> updateEvent(Long eventId, Evenement event);
-    void deleteEvent(Long eventId);
+    ResponseEntity<?> deleteEvent(Long eventId);
 
     ResponseEntity<?> addEvent(Evenement evenement);
 

@@ -37,7 +37,7 @@ public class RegistrationService {
                         request.getPrenom(),
                         request.getNom(),
                         request.getEmail(),
-                        request.getRole(),
+                        request.getRoles(),
                         request.getMotDePasse(),
                         request.getDateNaissance(),
                         request.getNumTel()
@@ -283,7 +283,6 @@ public class RegistrationService {
             return "{"
                     + "Utilisateur connecté avec succès, voici le token de connexion\","+ token+"\","
                     +"\n\"email\" :\"" + userRepo.findByEmail(request.getEmail()).get().getEmail()+"\","
-                    +"\n\"Role\" :\"" + userRepo.findByEmail(request.getEmail()).get().getRole()+"\","
                     +"\n\"first_name\" : \"" + userRepo.findByEmail(request.getEmail()).get().getPrenom()+"\","
                     +"\n\"Enabled\" : " + userRepo.findByEmail(request.getEmail()).get().getEnabled()
                     +"}";

@@ -2,6 +2,7 @@ package com.wevent.wevent.Controllers;
 
 
 import com.wevent.wevent.Entities.ERole;
+import com.wevent.wevent.Entities.Role;
 import com.wevent.wevent.Entities.Utilisateur;
 import com.wevent.wevent.Services.IUserService;
 import lombok.AllArgsConstructor;
@@ -15,39 +16,51 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("crudusers")
+@RequestMapping("users")
 public class UserController {
     IUserService userService;
 
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<Utilisateur>> getUsers()
     {
         return ResponseEntity.ok().body(userService.getUsers());
     }
-    @GetMapping("users/{userId}")
+
+    @PostMapping
+    public ResponseEntity<ResponseEntity<?>> addUser(@RequestBody Utilisateur utilisateur)
+    {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users").toUriString());
+        return ResponseEntity.created(uri).body(userService.addUser(utilisateur));
+    }
+
+    @PostMapping("addrole")
+    public ResponseEntity<Role> addRole(Role role)
+    {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users").toUriString());
+        return ResponseEntity.created(uri).body(userService.addRole(role));
+    }
+    @GetMapping("{userId}")
     public Utilisateur getUser(@PathVariable Long userId)
     {
         return userService.getUser(userId);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody Utilisateur utilisateur)
     {
         return userService.updateUser(id,utilisateur);
     }
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("{userId}")
     public void deleteUser(@PathVariable Long userId)
     {
         userService.deleteUser(userId);
     }
 
     @PutMapping("/addRole/user")
-    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm f)
-    {
-        userService.addRoleToUser(f.getEmail(),f.getNomRole());
+    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm f) {
+        userService.addRoleToUser(f.getEmail(), f.getNomRole());
         return ResponseEntity.ok().build();
     }
-
 }
 @Data
 class RoleToUserForm
