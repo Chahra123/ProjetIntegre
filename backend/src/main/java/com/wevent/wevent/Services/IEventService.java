@@ -13,6 +13,6 @@ public interface IEventService {
     ResponseEntity<?> updateEvent(Long eventId, Evenement event);
     void deleteEvent(Long eventId);
 
-    Evenement addEvent(Evenement evenement);
+    ResponseEntity<?> addEvent(Evenement evenement);
 
 }
