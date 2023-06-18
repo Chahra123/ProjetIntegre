@@ -1,9 +1,6 @@
 package com.wevent.wevent.Entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 public class Evenement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

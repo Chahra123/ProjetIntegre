@@ -29,7 +29,7 @@ public class EventService implements IEventService{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Evénement introuvable"));
         }
-        return ResponseEntity.ok().body(new MessageResponse("Voici l'événement: "+e));
+        return ResponseEntity.ok().body(new MessageResponse("Voici l'événement: "+e.toString()));
     }
 
     @Override
@@ -59,15 +59,16 @@ public class EventService implements IEventService{
     }
 
     @Override
-    public Evenement addEvent(Evenement e) {
-        /*if( eventRepo.existsByNomEvenement(e.getNomEvenement()))
+    public ResponseEntity<?> addEvent(Evenement e) {
+        if( eventRepo.existsByNomEvenement(e.getNomEvenement()))
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Evenement existe deja"));
         }
+
         Evenement evenement = new Evenement(e.getNomEvenement(),
                 e.getDescriptionEvenement(),e.getDateDebut(),e.getDateFin(),e.getPrix(),e.getNbrePersonnes(),e.getImage(),e.getTypeEvenement(),e.getAutreType(),e.getInteresse(),e.getStatut());
-*/
-        return eventRepo.save(e);
-        //return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));}
-}}
+
+        eventRepo.save(evenement);
+        return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));}
+}
