@@ -24,7 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
                 .antMatchers("/registration/**").permitAll()
                 .antMatchers("/events/**").permitAll()
-                .antMatchers("/users/*").permitAll();
+                .antMatchers("/users/*").permitAll()
+                .antMatchers("/reservation/*").permitAll();
     }
 
     @Override
