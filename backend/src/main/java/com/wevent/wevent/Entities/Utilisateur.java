@@ -71,8 +71,21 @@ public class Utilisateur implements Serializable, UserDetails {
     @OneToMany(mappedBy = "utilisateur")
     Set<Reservation> reservations = new HashSet<>();
 
+<<<<<<< HEAD
     public Utilisateur(Long idUtilisateur, String prenom, String nom, String email, Collection<Role> roles, String motDePasse) {
         this.idUtilisateur = idUtilisateur;
+=======
+    @ManyToMany(mappedBy = "utilisateurs")
+    Set<Notification> notifications = new HashSet<>();
+
+    public Utilisateur(String prenom,
+                       String nom,
+                       String email,
+                       ERole role,
+                       String motDePasse,
+                       Date dateNaissance,
+                       Long numTel) {
+>>>>>>> c67251562a24b0c0701f0bea9573d0bb7afc2185
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;

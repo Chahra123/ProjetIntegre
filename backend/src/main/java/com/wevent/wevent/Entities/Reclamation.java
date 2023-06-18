@@ -30,4 +30,9 @@ public class Reclamation implements Serializable {
 
     @ManyToOne
     Evenement evenement;
+
+    @OneToOne
+    @JoinColumn(name = "idNotif")
+    private Notification notification;
+
 }
