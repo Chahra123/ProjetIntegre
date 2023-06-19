@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -32,12 +33,14 @@ public class EventController {
     }
 
     @PutMapping("/{eventId}")
+    @RolesAllowed({"ADMIN","ORGANISATEUR"})
     public ResponseEntity<?> updateEvent(@PathVariable Long eventId, @RequestBody Evenement eventDetails)
     {
         return iEventService.updateEvent(eventId,eventDetails);
     }
 
     @DeleteMapping("/{eventId}")
+    @RolesAllowed({"ADMIN","ORGANISATEUR"})
     public void deleteEvent(@PathVariable Long eventId) {
         iEventService.deleteEvent(eventId);
     }

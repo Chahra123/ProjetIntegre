@@ -21,11 +21,7 @@ public class EventService implements IEventService{
         return eventRepo.findAll();
     }
 
-<<<<<<< HEAD
     @Override
-=======
-
->>>>>>> c67251562a24b0c0701f0bea9573d0bb7afc2185
     public ResponseEntity<MessageResponse> getEvent(Long eventId) {
         Evenement e = eventRepo.findById(eventId).orElse(null);
         if(e==null)
@@ -55,10 +51,6 @@ public class EventService implements IEventService{
         evenement.setStatut(eventDetails.getStatut());
         eventRepo.save(evenement);
         return ResponseEntity.ok().body(new MessageResponse("Evenement mis à jour avec succès"));
-<<<<<<< HEAD
-=======
-
->>>>>>> c67251562a24b0c0701f0bea9573d0bb7afc2185
     }
 
     @Override
@@ -74,24 +66,8 @@ public class EventService implements IEventService{
     }
 
     @Override
-<<<<<<< HEAD
-    public ResponseEntity<?> addEvent(Evenement e) {
-        if( eventRepo.existsByNomEvenement(e.getNomEvenement()))
-        {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new MessageResponse("Evenement existe deja"));
-        }
-
-        Evenement evenement = new Evenement(e.getNomEvenement(),
-                e.getDescriptionEvenement(),e.getDateDebut(),e.getDateFin(),e.getPrix(),e.getNbrePersonnes(),e.getImage(),e.getTypeEvenement(),e.getAutreType(),e.getInteresse(),e.getStatut());
-
-        eventRepo.save(evenement);
-        return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));}
-=======
-
     public ResponseEntity<?> addEvent(Evenement evenement) {
         eventRepo.save(evenement);
         return ResponseEntity.ok().body(new MessageResponse("Evenement ajouté avec succès"));
     }
->>>>>>> c67251562a24b0c0701f0bea9573d0bb7afc2185
 }
