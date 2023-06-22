@@ -9,9 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -29,15 +27,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<ResponseEntity<?>> addUser(@RequestBody Utilisateur utilisateur)
     {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users").toUriString());
-        return ResponseEntity.created(uri).body(userService.addUser(utilisateur));
-    }
-
-    @PostMapping("addrole")
-    public ResponseEntity<Role> addRole(Role role)
-    {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users").toUriString());
-        return ResponseEntity.created(uri).body(userService.addRole(role));
+        return ResponseEntity.ok().body(userService.addUser(utilisateur));
     }
     @GetMapping("{userId}")
     public Utilisateur getUser(@PathVariable Long userId)
@@ -51,9 +41,9 @@ public class UserController {
         return userService.updateUser(id,utilisateur);
     }
     @DeleteMapping("{userId}")
-    public void deleteUser(@PathVariable Long userId)
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId)
     {
-        userService.deleteUser(userId);
+        return userService.deleteUser(userId);
     }
 
     @PutMapping("/addRole/user")
@@ -66,5 +56,5 @@ public class UserController {
 class RoleToUserForm
 {
     private String email;
-    private ERole nomRole;
+    private String nomRole;
 }

@@ -21,7 +21,7 @@ import java.util.*;
 @Table(name = "users",uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 @DiscriminatorValue(value = "User")
 @EqualsAndHashCode
-public class Utilisateur implements Serializable, UserDetails {
+public class Utilisateur implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUtilisateur;
@@ -36,9 +36,6 @@ public class Utilisateur implements Serializable, UserDetails {
     @Email(message ="Format non respecté")
     private String email;
 
-    //@NotEmpty(message="Role obligatoire")
-    //@Enumerated(EnumType.STRING)
-    //private ERole role;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
@@ -51,8 +48,6 @@ public class Utilisateur implements Serializable, UserDetails {
 
     Long numTel;
 
-    Boolean locked = false;
-    Boolean enabled = false;
     @OneToMany(mappedBy = "utilisateur")
     Set<Reclamation> reclamations = new HashSet<>();
 
@@ -96,43 +91,5 @@ public class Utilisateur implements Serializable, UserDetails {
         this.motDePasse = motDePasse;
         this.dateNaissance = dateNaissance;
         this.numTel = numTel;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        /*SimpleGrantedAuthority simpleGrantedAuthority =
-                new SimpleGrantedAuthority(role.name());
-        return Collections.singletonList(simpleGrantedAuthority);*/
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return motDePasse;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return !false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
     }
 }

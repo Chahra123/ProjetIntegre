@@ -13,10 +13,9 @@ public interface IUserService {
     ResponseEntity<?> addUser(Utilisateur utilisateur);
     ResponseEntity<?> updateUser(Long userId, Utilisateur utilisateur);
     ResponseEntity<?> deleteUser(Long userId);
-    void addRoleToUser(String email, ERole nomRole);
+    void addRoleToUser(String email, String nomRole);
     int enableUser(String email);
     Utilisateur getUser(Long userId);
 
     List<Utilisateur> getUsers();
-    Role addRole(Role role);
 }

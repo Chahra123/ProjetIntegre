@@ -267,7 +267,7 @@ public class RegistrationService {
     }
     public String login(LoginRequest request) {
         if (userRepo.findByEmail(request.getEmail()).isPresent() &&  passwordEncoder
-                .matches(request.getPassword(),userRepo.findByEmail(request.getEmail()).get().getPassword()))
+                .matches(request.getPassword(),userRepo.findByEmail(request.getEmail()).get().getMotDePasse()))
         {
             String token = UUID.randomUUID().toString();
             ConfirmationToken confirmationToken = new ConfirmationToken(
@@ -284,7 +284,6 @@ public class RegistrationService {
                     + "Utilisateur connecté avec succès, voici le token de connexion\","+ token+"\","
                     +"\n\"email\" :\"" + userRepo.findByEmail(request.getEmail()).get().getEmail()+"\","
                     +"\n\"first_name\" : \"" + userRepo.findByEmail(request.getEmail()).get().getPrenom()+"\","
-                    +"\n\"Enabled\" : " + userRepo.findByEmail(request.getEmail()).get().getEnabled()
                     +"}";
         }
         throw new IllegalStateException(" Les identifiants de connexion sont eronnés ")	;

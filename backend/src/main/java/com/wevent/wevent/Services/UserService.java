@@ -48,12 +48,6 @@ public class UserService implements  IUserService, UserDetailsService {
     }
 
     @Override
-    public Role addRole(Role role) {
-        log.info("Saving a role to DB");
-        return roleRepo.save(role);
-    }
-
-    @Override
     public Utilisateur getUser(Long userId) {
         return userRepo.findById(userId).orElse(null);
     }
@@ -71,13 +65,14 @@ public class UserService implements  IUserService, UserDetailsService {
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Email déjà utilisé"));
         }
+        u.setEmail(userDetails.getEmail());
         u.setNom(userDetails.getNom());
         u.setPrenom(userDetails.getPrenom());
         u.setMotDePasse(userDetails.getMotDePasse());
         u.setNumTel(userDetails.getNumTel());
         u.setDateNaissance(userDetails.getDateNaissance());
         userRepo.save(u);
-        return ResponseEntity.ok().body(new MessageResponse("Utilisateur mise à jour avec succès"));
+        return ResponseEntity.ok().body(new MessageResponse("Utilisateur mis à jour avec succès"));
     }
 
     @Override
@@ -87,7 +82,7 @@ public class UserService implements  IUserService, UserDetailsService {
     }
 
     @Override
-    public void addRoleToUser(String email, ERole nomRole) {
+    public void addRoleToUser(String email, String nomRole) {
         Utilisateur utilisateur = userRepo.findByEmail11(email);
         Role role =  roleRepo.findByNomRole(nomRole);
         utilisateur.getRoles().add(role);
@@ -103,14 +98,24 @@ public class UserService implements  IUserService, UserDetailsService {
 
     @Override
     public ResponseEntity<?> addUser(Utilisateur utilisateur) {
-        if (userRepo.existsByEmail(utilisateur.getEmail()))
-        {
+        if (userRepo.existsByEmail(utilisateur.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Email déjà utilisé"));
         }
         log.info("Saving new user to the DB");
+        List<Role> persistedRoles = new ArrayList<>();
+        for (Role role : utilisateur.getRoles()) {
+            Role persistedRole = roleRepo.findByNomRole(role.getNomRole());
+            if (persistedRole == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Rôle incorrect"));
+            }
+            persistedRoles.add(persistedRole);
+        }
+        utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
+        utilisateur.setRoles(persistedRoles);
         userRepo.save(utilisateur);
         return ResponseEntity.ok().body(new MessageResponse("Utilisateur ajouté avec succès"));
     }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Utilisateur utilisateur = userRepo.findByEmail11(email);
@@ -138,7 +143,7 @@ public class UserService implements  IUserService, UserDetailsService {
             throw new IllegalStateException(("email deja existant"));
         }
         String encodedPassword = bCryptPasswordEncoder
-                .encode(utilisateur.getPassword());
+                .encode(utilisateur.getMotDePasse());
         utilisateur.setMotDePasse(encodedPassword);
         userRepo.save(utilisateur);
         //SEND CONFIRMATION TOKEN:
