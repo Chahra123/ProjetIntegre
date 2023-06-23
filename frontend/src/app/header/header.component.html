@@ -1,0 +1,76 @@
+<header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+        <div class="home p-1 rounded">
+            <ul class="navbar-nav">
+                <li class="nav-item p-1 rounded">
+
+                    <a class="nav-link smooth-scroll text-uppercase" href="home"><i class='bx bx-home'></i> Home
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <button class="navbar-toggler nav mb-1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container ">
+            <div style="width: 100%; float: right;" class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav" style=" float: right;">
+                    <li class="nav-item p-1 rounded">
+                        <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#about"><i
+                                class='bx bx-user'></i> {{'header.about' | translate}}
+                        </a>
+                    </li>
+
+                    <li class="nav-item p-1 rounded">
+                        <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#cv"> <i
+                                class='bx bx-file-blank'></i>References</a>
+                    </li>
+                    <li class="nav-item p-1 rounded">
+                        <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#portfolio"> <i
+                                class='bx bx-book-content'></i>Portfolio</a>
+                    </li>
+                    <li class="nav-item p-1 rounded">
+                        <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#references"><i
+                                class='bx bxs-badge-check'></i> Forum</a>
+                    </li>
+                    <li class="nav-item p-1 rounded">
+                        <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#contact"> <i
+                                class='bx bx-envelope'></i>{{'header.contactMe' | translate}}</a>
+                    </li>
+
+                    <!-- <li class="nav-item p-1 rounded">
+                        <mat-radio-group  [(ngModel)]="language" style="margin-top: 5px;"
+                            (change)="languageChange($event)" aria-label="Select a language">
+                            <mat-radio-button value="en" >
+                                Dark Mode
+                            </mat-radio-button>
+                            <mat-radio-button value="fr" class="pl-3">
+                                Light Mode
+                            </mat-radio-button>
+                        </mat-radio-group>
+
+                    </li> -->
+                    <li class="nav-item p-1 rounded">
+                        <div class="dropdown">
+                          <button class="dropdown-toggle nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">person</i>
+                            <span>John Doe</span>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" routerLink="/reservations" href="#">Reservations</a>
+                          </div>
+                        </div>
+                      </li>
+                </ul>
+                <ul>
+                    <li>
+                        <button (click)="toggleLogin()" id="signin">Sign In</button>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
