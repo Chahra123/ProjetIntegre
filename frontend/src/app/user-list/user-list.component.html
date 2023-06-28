@@ -1,0 +1,42 @@
+<h2>Users List</h2>
+<div class="d-flex justify-content-end" style="margin-bottom: 10px; margin-top: 30px;">
+  <button class="btn btn-primary" (click)="addUser()">
+    <i class="fa fa-plus"></i> Add User
+  </button>
+</div>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Date Naissance</th>
+      <th>Numéro Téléphone</th>
+      <th>Role(s)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.idUtilisateur}}</td>
+      <td>{{user.nom}}</td>
+      <td>{{user.prenom}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.dateNaissance}}</td>
+      <td>{{user.numTel}}</td>
+      <td>
+        <div class="tags">
+          <span class="tag" *ngFor="let role of user.roles">{{role.nomRole}}</span>
+        </div>
+      </td>
+      <td>
+        <button (click)="updateUser(user.idUtilisateur)" class="btn btn-info">Mettre à jour</button>
+        <button (click)="deleteUser(user.idUtilisateur)" class="btn btn-danger" style="margin-left: 10px;">Supprimer</button>
+        <button (click)="viewUser(user.idUtilisateur)" class="btn btn-info" style="margin-left: 10px;">Aperçu</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

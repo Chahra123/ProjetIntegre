@@ -4,23 +4,25 @@
       <div class="card" id="left">
         <div class="text-center">
           <h1>Login</h1>
-          <h6>Please enter your email & password !!</h6>
+          <h6>Please enter your email & password</h6>
         </div>
-        <form>
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" ngModel name="userName" id="userName">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input type="password" class="form-control" id="exampleInputPassword1" ngModel
+            name="userPassword"
+            id="userPassword">
           </div>
           <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
           </div>
-          <button type="submit" class="btn btn-primary submit">Submit</button>
+          <button type="submit" class="btn btn-primary submit" value="Login">Submit</button>
         </form>
       </div>
     </div>
@@ -40,52 +42,55 @@
     </div>
   </div>
 
-<div class="container" *ngIf="showLogin" id="signup" style="width: 100%;">
-  <div class="row" style="width: 100%;">
-    <div class="col-md-6">
-      <div class="card" id="left1">
-        <div class="text-center">
-          <h1>Sign Up</h1>
-          <h6>Registration</h6>
-        </div>
-        <form>
-          <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="exampleInputPassword1">
+  <div class="container" *ngIf="showLogin" id="signup" style="width: 100%;">
+    <div class="row" style="width: 100%;">
+      <div class="col-md-6">
+        <div class="card" id="left1">
+          <div class="text-center">
+            <h1>Sign Up</h1>
+            <h6>Registration</h6>
+          </div>
+          <form #signupForm="ngForm" (ngSubmit)="saveUser1()">
+            <div class="mb-3">
+              <label for="prenom" class="form-label">Prénom</label>
+              <input type="text" class="form-control" id="prenom" [(ngModel)]="user.prenom" name="prenom" required>
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Mobile Number</label>
-              <input type="number" class="form-control" id="exampleInputPassword1">
+              <label for="nom" class="form-label">Nom</label>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="user.nom" name="nom" required>
             </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Accept terms and conditions</label>
-          </div>
-          <button type="submit" class="btn btn-primary submit1" >Sign Up</button>
-        </form>
+            <div class="mb-3">
+              <label for="dateNaissance" class="form-label">Date de naissance</label>
+              <input type="date" class="form-control" id="dateNaissance" [(ngModel)]="user.dateNaissance" name="dateNaissance" required>
+            </div>
+            <div class="mb-3">
+              <label for="numTel" class="form-label">Numéro de téléphone</label>
+              <input type="number" class="form-control" id="numTel" [(ngModel)]="user.numTel" name="numTel" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" required>
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="motDePasse" class="form-label">Mot De Passe</label>
+              <input type="password" class="form-control" id="motDePasse" [(ngModel)]="user.motDePasse" name="motDePasse" required>
+            </div>
+            <button type="submit" class="btn btn-primary submit1">Sign Up</button>
+          </form>
+        </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card" id="right1">
-        <p style="font-size: 20px;margin-top: 20px;">You have an account?</p>
-        <br>
-        <button (click)="showLogin = false" id="sign2">Login!</button>
-        <br>
-        <br>
-        Not Interested?
-        <a class="nav-link smooth-scroll text-uppercase" href="home"><i class='bx bx-home'></i> home
-      </a>
+      <div class="col-md-6">
+        <div class="card" id="right1">
+          <p style="font-size: 20px;margin-top: 20px;">You have an account?</p>
+          <br>
+          <button (click)="showLogin = false" id="sign2">Login!</button>
+          <br>
+          <br>
+          Not Interested?
+          <a class="nav-link smooth-scroll text-uppercase" href="home"><i class='bx bx-home'></i> home</a>
+        </div>
       </div>
-
     </div>
   </div>
-</div>
+

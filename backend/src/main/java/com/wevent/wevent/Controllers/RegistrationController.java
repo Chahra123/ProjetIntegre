@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     private RegistrationService registrationService;
     @PostMapping("signup")
-    public String signup (@RequestBody Utilisateur request)
+    public String signup (@RequestBody RegistrationRequest request)
     {
         return registrationService.register(request);
     }
@@ -23,7 +23,7 @@ public class RegistrationController {
     public String confirm(@RequestParam("token") String token) {
         return registrationService.confirmToken(token);
     }
-    @PostMapping(path = "/signin")
+    @PostMapping(path = "signin")
     public String login(@RequestBody LoginRequest request) {
         return registrationService.login(request);
     }

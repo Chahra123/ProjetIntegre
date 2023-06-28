@@ -69,13 +69,7 @@ public class Utilisateur implements Serializable{
     @ManyToMany(mappedBy = "utilisateurs")
     Set<Notification> notifications = new HashSet<>();
 
-    public Utilisateur(String prenom,
-                       String nom,
-                       String email,
-                       ERole role,
-                       String motDePasse,
-                       Date dateNaissance,
-                       Long numTel) {
+    public Utilisateur(String prenom, String nom, String email, ERole role, String motDePasse, Date dateNaissance, Long numTel) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;

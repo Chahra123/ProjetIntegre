@@ -1,0 +1,27 @@
+<h3>View User Details</h3>
+<div>
+  <div>
+    <label><b>Id:</b> </label>{{user.idUtilisateur}}
+  </div>
+  <div>
+    <label><b>Nom:</b> </label>{{user.nom}}
+  </div>
+  <div>
+    <label><b>Prénom:</b> </label>{{user.prenom}}
+  </div>
+  <div>
+    <label><b>Email:</b> </label>{{user.email}}
+  </div>
+  <div>
+    <label><b>Numéro de téléphone:</b> </label>{{user.numTel}}
+  </div>
+  <div>
+    <label><b>Date de naissance:</b> </label>{{user.dateNaissance}}
+  </div>
+  <div>
+    <label><b>Rôles:</b> </label>
+    <div class="tags">
+      <span class="tag" *ngFor="let role of user.roles">{{role.nomRole}}</span>
+    </div>
+  </div>
+</div>

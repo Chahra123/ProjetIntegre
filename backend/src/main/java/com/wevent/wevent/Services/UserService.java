@@ -77,6 +77,8 @@ public class UserService implements  IUserService, UserDetailsService {
 
     @Override
     public ResponseEntity<?> deleteUser(Long userId) {
+        userRepo.deleteUserFromConfirmationToken(userId);
+        userRepo.deleteUserFromUserRoles(userId);
         userRepo.deleteById(userId);
         return ResponseEntity.ok().body(new MessageResponse("Utilisateur supprimé avec succès"));
     }
@@ -103,13 +105,9 @@ public class UserService implements  IUserService, UserDetailsService {
         }
         log.info("Saving new user to the DB");
         List<Role> persistedRoles = new ArrayList<>();
-        for (Role role : utilisateur.getRoles()) {
-            Role persistedRole = roleRepo.findByNomRole(role.getNomRole());
-            if (persistedRole == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Rôle incorrect"));
-            }
-            persistedRoles.add(persistedRole);
-        }
+        Role roleClient = new Role(2L,"CLIENT");
+        persistedRoles.add(roleClient);
+        utilisateur.setRoles(persistedRoles);
         utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
         utilisateur.setRoles(persistedRoles);
         userRepo.save(utilisateur);
@@ -142,6 +140,11 @@ public class UserService implements  IUserService, UserDetailsService {
         {
             throw new IllegalStateException(("email deja existant"));
         }
+        System.out.println("BBBBBBBBBBBBBBBB "+utilisateur);
+        if (utilisateur.getMotDePasse()==null) {
+            // Handle the case when the password is null
+            throw new IllegalArgumentException("Password cannot be null");
+        }
         String encodedPassword = bCryptPasswordEncoder
                 .encode(utilisateur.getMotDePasse());
         utilisateur.setMotDePasse(encodedPassword);
@@ -159,4 +162,14 @@ public class UserService implements  IUserService, UserDetailsService {
         //SEND EMAIL
         return token;
     }
+
+    public boolean ifEmailExists(String email)
+    {
+        return userRepo.existsByEmail(email);
+    }
+    public Object getUserByHisLastAndFirstName(Long userId)
+    {
+        return userRepo.getUserByHisLastAndFirstName(userId);
+    }
+
 }

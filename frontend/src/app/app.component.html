@@ -1,14 +1,2 @@
 <app-header></app-header>
-<app-login *ngIf="!showLogin"></app-login>
-<div class="page-content" *ngIf="showLogin">
-
-
-    <router-outlet></router-outlet>
-    <footer class="footer" >
-        <p> <span>W'Event Team</span> </p>
-    </footer>
-</div>
-
-<!-- (click)="toggleSociete()" -->
-
-
+<router-outlet></router-outlet>

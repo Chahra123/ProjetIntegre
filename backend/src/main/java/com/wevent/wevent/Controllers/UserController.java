@@ -1,8 +1,6 @@
 package com.wevent.wevent.Controllers;
 
 
-import com.wevent.wevent.Entities.ERole;
-import com.wevent.wevent.Entities.Role;
 import com.wevent.wevent.Entities.Utilisateur;
 import com.wevent.wevent.Services.IUserService;
 import lombok.AllArgsConstructor;
@@ -24,6 +22,10 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
+    @GetMapping("firstandlastnameandid/{id}")
+    public ResponseEntity<Object> getUserFirstAndLastName(@PathVariable(value="id") long userId){
+        return ResponseEntity.ok().body(userService.getUserByHisLastAndFirstName(userId));
+    }
     @PostMapping
     public ResponseEntity<ResponseEntity<?>> addUser(@RequestBody Utilisateur utilisateur)
     {

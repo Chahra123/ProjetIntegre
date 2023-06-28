@@ -1,47 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import * as $ from 'jquery';
-import { AuthService } from '../service/auth.service';
+import { UserAuthService } from '../_services/user-auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../_services/user.service';
+import { User } from 'src/_model/user';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  language:any="";
-  constructor(private _translateService: TranslateService,private authService: AuthService) {
-
-    if(localStorage.getItem("lang")){
-      this.language=localStorage.getItem("lang");
-    }
-    else{
-      this.language='fr';
-    }
-  }
-
-
-
-  languageChange($event:any){
-    let lang=$event.value;
-    localStorage.setItem("lang", lang);
-    this._translateService.setDefaultLang(lang);
-    this._translateService.use(lang);
-  }
-  toggleLogin() {
-    this.authService.setShowLogin(false);
-
-  }
-
-  ngOnInit(): void {
-    $('.js-scroll-trigger').on('click',
-      function (): void {
-        $('.navbar-collapse').toggle();
+  public loggedInUserName: string | null = null; // Variable to store the logged-in user's name
+  public currentUser: User | null = null; // Property to store the logged-in user's information
+  constructor(
+    private userAuthService: UserAuthService,
+    private router: Router,
+    public userService:UserService,
+    private route:ActivatedRoute
+  ) {
+    this.route.params.subscribe(params => {
+      const userId = params['id'];
+      if (userId) {
+        this.userService.getUserById(userId).subscribe((user: User) => {
+          if (user) {
+            this.currentUser = user;
+            this.loggedInUserName = `${user.prenom} ${user.nom}`;
+          }
+        });
       }
-    );
-    $('.nav').on('click',
-      function (): void {
-        $('.navbar-collapse').toggle();
-      }
-    );
+    });
+  }
+
+  ngOnInit(): void {}
+  public isLoggedIn() {
+    return this.userAuthService.isLoggedIn();
+  }
+  public logout() {
+    this.userAuthService.clear();
+    this.router.navigate(['/home']);
   }
 }

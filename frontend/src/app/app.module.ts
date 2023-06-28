@@ -1,61 +1,57 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './home/home.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
-import { MatRadioModule } from '@angular/material/radio';
+import { OrganisateurComponent } from './organisateur/organisateur.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/Icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/_auth/auth.guard';
+import { AuthInterceptor } from 'src/app/_auth/auth.interceptor';
+import { UserService } from './_services/user.service';
+import { UserListComponent } from './user-list/user-list.component';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TokenFormComponent } from './token-form/token-form.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     HomeComponent,
+    OrganisateurComponent,
+    ForbiddenComponent,
+    HeaderComponent,
     LoginComponent,
-
-
+    UserListComponent,
+    CreateUserComponent,
+    UpdateUserComponent,
+    UserDetailsComponent,
+    DashboardComponent,
+    TokenFormComponent
   ],
   imports: [
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    CommonModule,
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule,
-    TranslateModule,
-    BrowserAnimationsModule,
-    MatRadioModule,
-    MatMenuModule,
-    MatDialogModule,
-    MatCardModule,
     FormsModule,
-    MatSelectModule,
-    MatButtonToggleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    TranslateModule.forRoot(),
-
+    HttpClientModule,
+    RouterModule
   ],
   providers: [
-
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass:AuthInterceptor,
+      multi:true
+    },
+    UserService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ package com.wevent.wevent.Services;
 
 import com.wevent.wevent.Email.EmailSender;
 import com.wevent.wevent.Email.EmailValidator;
+import com.wevent.wevent.Entities.Role;
 import com.wevent.wevent.Entities.Utilisateur;
 import com.wevent.wevent.Repositories.UserRepo;
 import com.wevent.wevent.Request.LoginRequest;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 @Service
@@ -26,29 +29,36 @@ public class RegistrationService {
     private EmailValidator emailValidator;
     BCryptPasswordEncoder passwordEncoder;
     private final UserRepo userRepo;
-    public String register(Utilisateur request) {
+    public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
-        if (!isValidEmail)
-        {
+        if (!isValidEmail) {
             throw new IllegalStateException("email introuvable");
         }
-        String token = userService.signUpUser(
-                new Utilisateur(
-                        request.getPrenom(),
-                        request.getNom(),
-                        request.getEmail(),
-                        request.getRoles(),
-                        request.getMotDePasse(),
-                        request.getDateNaissance(),
-                        request.getNumTel()
-                )
-        );
-        emailSender
-                .send(
-                        request.getEmail(),
-                        buildEmail(request.getPrenom(),token));
-        return token;
+
+        Collection<Role> roles = new ArrayList<>();
+        Role clientRole = new Role(2L, "CLIENT");
+        roles.add(clientRole);
+
+        try {
+            String token = userService.signUpUser(
+                    new Utilisateur(
+                            request.getPrenom(),
+                            request.getNom(),
+                            request.getEmail(),
+                            roles,
+                            request.getMotDePasse(),
+                            request.getDateNaissance(),
+                            request.getNumTel()
+                    )
+            );
+            emailSender.send(request.getEmail(), buildEmail(request.getPrenom(), token));
+            return token;
+        } catch (IllegalArgumentException e) {
+            // Handle the case when the password is null
+            return "Error: Password cannot be null";
+        }
     }
+
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService
@@ -218,7 +228,7 @@ public class RegistrationService {
                 + "                  <strong><span style=\"color: #0ed8b8;\"> Ci-dessous se trouve votre code de sécurité: <br><br></span></strong><br>\r\n"
                 + "									<br>\r\n"
                 + "<h3 style\"color:#000000>"+link+"</h3>"
-                + "<h3 style\"color:#000000>"+"Le lien expire dans 10 minutes"+"</h3>"
+                + "<h3 style\"color:#000000>"+"Le lien expire dans 10 minutes. Vous devez vous reconnecter pour accéder à votre compte. Merci"+"</h3>"
                 + "									\r\n"
                 + "									\r\n"
                 + "									Cordialement,<br>\r\n"

@@ -16,6 +16,8 @@ public interface IUserService {
     void addRoleToUser(String email, String nomRole);
     int enableUser(String email);
     Utilisateur getUser(Long userId);
+    Object getUserByHisLastAndFirstName(Long userId);
 
     List<Utilisateur> getUsers();
+    public boolean ifEmailExists(String email);
 }
