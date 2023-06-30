@@ -2,19 +2,25 @@ package com.wevent.wevent.Controllers;
 
 
 import com.wevent.wevent.Entities.Utilisateur;
+import com.wevent.wevent.Repositories.UserRepo;
+import com.wevent.wevent.Response.MessageResponse;
 import com.wevent.wevent.Services.IUserService;
+import com.wevent.wevent.Services.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("users")
 public class UserController {
     IUserService userService;
+    UserRepo userRepo;
+    RegistrationService registrationService;
 
     @GetMapping
     public ResponseEntity<List<Utilisateur>> getUsers()

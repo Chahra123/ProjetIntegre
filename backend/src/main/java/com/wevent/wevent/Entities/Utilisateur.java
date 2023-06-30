@@ -12,6 +12,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Data
@@ -47,6 +49,8 @@ public class Utilisateur implements Serializable{
     Date dateNaissance;
 
     Long numTel;
+    private String resetToken;
+    private LocalDateTime resetTokenExpiration;
 
     @OneToMany(mappedBy = "utilisateur")
     Set<Reclamation> reclamations = new HashSet<>();
@@ -85,5 +89,8 @@ public class Utilisateur implements Serializable{
         this.motDePasse = motDePasse;
         this.dateNaissance = dateNaissance;
         this.numTel = numTel;
+    }
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(resetTokenExpiration);
     }
 }

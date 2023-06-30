@@ -11,6 +11,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenFormComponent } from './token-form/token-form.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'home',pathMatch:'full'},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
   { path: 'tokenform' , component: TokenFormComponent},
   { path: 'forbidden', component: ForbiddenComponent },
+  { path: '**', component: NotfoundComponent },
 ];
 
 @NgModule({

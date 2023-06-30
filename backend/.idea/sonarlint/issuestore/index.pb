@@ -5,8 +5,6 @@ f
 6src/main/java/com/wevent/wevent/WeventApplication.java,a\8\a82e0c3d4f33e8e42a5a5a2da27caccd5de63c96
 p
 @src/main/java/com/wevent/wevent/Controllers/EventController.java,4\e\4e842bd2ec255b35eb3aafc0d97a91678648bb6e
-}
-Msrc/main/java/com/wevent/wevent/Security/Config/WebSecurityConfiguration.java,0\c\0c4592c66aea513dd490064758d0a2cfdefbf30d
 v
 Fsrc/main/java/com/wevent/wevent/Security/Config/CorsConfiguration.java,b\c\bc1a98f114215412b0017621c3a9f3d750d4071b
 b

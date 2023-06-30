@@ -21,20 +21,17 @@ public class EmailService implements EmailSender {
     @Override
     @Async
     public void send(String to, String email) {
-        try
-        {
+        try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,"utf-8");
-            helper.setText(email,true);
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+            helper.setText(email, true);
             helper.setTo(to);
             helper.setSubject("Confirmer votre email");
             helper.setFrom("wevent@management.tn");
             //Envoyer le mail
             mailSender.send(mimeMessage);
-        }
-        catch (MessagingException e)
-        {
-            LOGGER.error("email non envoyé",e);
+        } catch (MessagingException e) {
+            LOGGER.error("email non envoyé", e);
             throw new IllegalStateException(("failed to send email"));
         }
     }

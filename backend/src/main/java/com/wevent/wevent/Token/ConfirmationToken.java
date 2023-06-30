@@ -35,5 +35,4 @@ public class ConfirmationToken implements Serializable {
         this.expiresAt = expiresAt;
         this.utilisateur = utilisateur;
     }
-
 }

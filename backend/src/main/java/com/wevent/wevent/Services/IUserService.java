@@ -5,8 +5,10 @@ import com.wevent.wevent.Entities.ERole;
 import com.wevent.wevent.Entities.Role;
 import com.wevent.wevent.Entities.Utilisateur;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IUserService {
 
@@ -19,5 +21,10 @@ public interface IUserService {
     Object getUserByHisLastAndFirstName(Long userId);
 
     List<Utilisateur> getUsers();
-    public boolean ifEmailExists(String email);
-}
+    boolean ifEmailExists(String email);
+    String generateResetToken(Utilisateur utilisateur);
+    void saveResetToken(Utilisateur utilisateur, String resetToken);
+    Utilisateur validateResetToken(String resetToken);
+    void resetUserPassword(Utilisateur utilisateur, String newPassword);
+    Utilisateur getUserByResetToken(String token);
+    }

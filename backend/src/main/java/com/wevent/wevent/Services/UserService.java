@@ -21,10 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -140,7 +137,6 @@ public class UserService implements  IUserService, UserDetailsService {
         {
             throw new IllegalStateException(("email deja existant"));
         }
-        System.out.println("BBBBBBBBBBBBBBBB "+utilisateur);
         if (utilisateur.getMotDePasse()==null) {
             // Handle the case when the password is null
             throw new IllegalArgumentException("Password cannot be null");
@@ -167,9 +163,69 @@ public class UserService implements  IUserService, UserDetailsService {
     {
         return userRepo.existsByEmail(email);
     }
+
     public Object getUserByHisLastAndFirstName(Long userId)
     {
         return userRepo.getUserByHisLastAndFirstName(userId);
     }
+
+    public String generateResetToken(Utilisateur utilisateur) {
+        String token = UUID.randomUUID().toString();
+        LocalDateTime expiration = LocalDateTime.now().plusHours(1); // Set the token expiration time (e.g., 1 hour from now)
+        utilisateur.setResetToken(token);
+        utilisateur.setResetTokenExpiration(expiration);
+        userRepo.save(utilisateur); // Save the updated user object to the database
+        return token;
+    }
+
+    public void resetPassword(String email, String resetToken, String newPassword) {
+        Utilisateur utilisateur = userRepo.findByEmail11(email);
+        if (utilisateur == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        if (!utilisateur.getResetToken().equals(resetToken)) {
+            throw new IllegalArgumentException("Invalid reset token");
+        }
+        if (utilisateur.getResetTokenExpiration().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Reset token has expired");
+        }
+        utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(newPassword));
+        utilisateur.setResetToken(null); // Reset the token and expiration after successful password reset
+        utilisateur.setResetTokenExpiration(null);
+        userRepo.save(utilisateur); // Save the updated user object with the new password
+    }
+
+    public void saveResetToken(Utilisateur utilisateur, String resetToken) {
+        utilisateur.setResetToken(resetToken);
+        // Set the expiration date/time for the reset token as per your requirements
+        utilisateur.setResetTokenExpiration(LocalDateTime.now().plusHours(1)); // Example: Token expires in 1 hour
+        userRepo.save(utilisateur);
+    }
+
+    public Utilisateur validateResetToken(String resetToken) {
+        Utilisateur user = getUserByResetToken(resetToken);
+        if(user==null)
+        {
+            throw new IllegalArgumentException("Invalid or expired reset token");
+        }
+
+        if (user.isExpired()) {
+            throw new IllegalArgumentException("Reset token has expired");
+        }
+
+        return user;
+    }
+
+    public void resetUserPassword(Utilisateur utilisateur, String newPassword) {
+        // Update the user's password with the new password
+        utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(newPassword));
+        userRepo.save(utilisateur);
+    }
+
+    @Override
+    public Utilisateur getUserByResetToken(String token) {
+        return userRepo.findByResetToken(token);
+    }
+
 
 }
