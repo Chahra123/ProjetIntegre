@@ -63,4 +63,22 @@ saveUser1() {
     this.router.navigate(['/tokenform']);
   }
 
+  forgotPassword(loginForm: NgForm) {
+    // Get the email from the form
+    const email = loginForm.value.userName;
+
+    this.userService.forgotPassword(email).subscribe(
+      (response: any) => {
+        // Handle success or show a notification to the user
+        console.log('Password reset email sent:', response);
+        this.router.navigate(['users/reset-password']);
+      },
+      (error) => {
+        // Handle error or show an error message to the user
+        console.error('Error sending password reset email:', error);
+      }
+    );
+  }
+
+
 }

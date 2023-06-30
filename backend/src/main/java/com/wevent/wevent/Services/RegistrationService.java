@@ -304,7 +304,7 @@ public class RegistrationService {
     public void sendPasswordResetEmail(Utilisateur utilisateur, String resetToken) {
         String emailContent = "Dear " + utilisateur.getNom() + ",\n\n"
                 + "You have requested to reset your password. Please click on the link below to reset your password:\n\n"
-                + "Reset Password Link: http://localhost:8754/users/reset-password?token=" + resetToken + "\n\n"
+                + "Reset Password Link: http://localhost:4200/users/reset-password?token=" + resetToken + "\n\n"
                 + "If you did not request this password reset, please ignore this email.\n\n"
                 + "Best regards,\n"
                 + "Your Application Team";

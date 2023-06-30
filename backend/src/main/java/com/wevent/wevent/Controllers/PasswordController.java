@@ -19,12 +19,6 @@ public class PasswordController {
     RegistrationService registrationService;
     UserRepo userRepo;
 
-    @PostMapping("changepassword")
-    ResponseEntity<String> changePassword(@RequestBody Map<String,String> requestMap)
-    {
-        return null;
-    }
-
     @PostMapping("forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestParam("email") String email) {
         // Check if the email exists in the database

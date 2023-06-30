@@ -9,8 +9,6 @@ v
 Fsrc/main/java/com/wevent/wevent/Security/Config/CorsConfiguration.java,b\c\bc1a98f114215412b0017621c3a9f3d750d4071b
 b
 2src/main/java/com/wevent/wevent/Entities/Role.java,a\f\af57cf09b83c16b26ee1b2af7e9f8eba1b0c26ad
-n
->src/main/java/com/wevent/wevent/Controllers/JwtController.java,a\0\a0933de7479592f98ae29a93fcef6063911d080c
 v
 Fsrc/main/java/com/wevent/wevent/Controllers/ReservationController.java,c\a\ca6e100cbc981015dfaac74f3634e1afed36584c
 g

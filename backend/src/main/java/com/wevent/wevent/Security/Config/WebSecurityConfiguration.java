@@ -46,8 +46,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate", "/registration/*").permitAll()
                 .antMatchers("/users/forgot-password").permitAll()
                 .antMatchers("/users/reset-password").permitAll()
+
+
+                .antMatchers(HttpMethod.GET,"/users**").hasAnyAuthority("ADMIN","ORGANISATEUR")
+                .antMatchers(HttpMethod.POST,"/users**").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/users**").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/users**").hasAnyAuthority("ADMIN")
+
                 .antMatchers("/events/**").hasAnyAuthority("ADMIN","ORGANISATEUR")
-                .antMatchers("/users*").hasAnyAuthority("ADMIN","ORGANISATEUR")
                 .antMatchers("/reservation/*").permitAll()
                 .anyRequest()
                 .authenticated()

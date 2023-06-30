@@ -20,7 +20,6 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenFormComponent } from './token-form/token-form.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 
@@ -39,7 +38,6 @@ import { NotfoundComponent } from './notfound/notfound.component';
     UserDetailsComponent,
     DashboardComponent,
     TokenFormComponent,
-    ForgotPasswordComponent,
     ResetPasswordComponent,
     NotfoundComponent
   ],

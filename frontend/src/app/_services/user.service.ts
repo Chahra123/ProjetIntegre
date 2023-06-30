@@ -70,4 +70,20 @@ export class UserService {
 
     return this.httpclient.get<string>(url, { params });
   }
+
+  forgotPassword(email: any): Observable<any> {
+    const url = `${this.PATH_OF_API}/users/forgot-password`;
+    const body = new HttpParams().set('email', email);
+
+    return this.httpclient.post(url, body);
+  }
+
+  resetPassword(token: string, password: string): Observable<any> {
+    const url = `${this.PATH_OF_API}/users/reset-password`;
+    const body = new HttpParams()
+      .set('token', token)
+      .set('password', password);
+
+    return this.httpclient.post(url, body);
+  }
 }

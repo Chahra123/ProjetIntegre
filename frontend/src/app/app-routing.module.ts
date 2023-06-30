@@ -12,6 +12,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenFormComponent } from './token-form/token-form.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'home',pathMatch:'full'},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'users/details/:id', component: UserDetailsComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
   { path: 'dashboard', component: DashboardComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
   { path: 'tokenform' , component: TokenFormComponent},
+  { path: 'users/reset-password', component: ResetPasswordComponent },
   { path: 'forbidden', component: ForbiddenComponent },
   { path: '**', component: NotfoundComponent },
 ];

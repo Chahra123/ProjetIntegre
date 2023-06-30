@@ -9,7 +9,7 @@
         <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" ngModel name="userName" id="userName">
+            <input type="email" class="form-control" id="exampleInputEmail1" ngModel name="userName" id="userName">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
           <div class="mb-3">
@@ -19,7 +19,7 @@
             id="userPassword">
           </div>
           <div class="mb-3 text-center">
-            <a href="" class="text-decoration-none">Forgot Password</a>
+            <a routerLink="../users/reset-password" class="text-decoration-none" (click)="forgotPassword(loginForm)">Forgot Password</a>
           </div>
           <button type="submit" class="btn btn-primary submit" value="Login">Submit</button>
         </form>
