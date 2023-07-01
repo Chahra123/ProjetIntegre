@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
   <h2>Users List</h2>
   <div class="d-flex justify-content-end" style="margin-bottom: 10px;">
@@ -40,3 +41,17 @@
     </tr>
   </tbody>
 </table>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Utilisateurs</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Utilisateur supprimé avec succès</label>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -28,3 +28,19 @@
     <button class="btn btn-success mt-3" type="submit">Mettre à jour</button>
   </form>
 </div>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Utilisateurs</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Utilisateur mis à jour avec succès</label>
+      </div>
+    </form>
+  </div>
+</ng-template>

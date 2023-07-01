@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../_services/user.service';
 import { UserAuthService } from '../_services/user-auth.service';
@@ -15,10 +16,12 @@ export class LoginComponent implements OnInit {
   showLogin: boolean = true;
   user: any = {};
   signupForm: any;
+  @ViewChild('content')
+  modalContent!: TemplateRef<any>;
   constructor(
     private userService: UserService,
     private userAuthService: UserAuthService,
-    private router:Router
+    private router:Router,private modalService:NgbModal
   ) {}
 
 
@@ -72,6 +75,7 @@ saveUser1() {
         // Handle success or show a notification to the user
         console.log('Password reset email sent:', response);
         this.router.navigate(['users/reset-password']);
+        this.openModalMail();
       },
       (error) => {
         // Handle error or show an error message to the user
@@ -79,6 +83,8 @@ saveUser1() {
       }
     );
   }
-
+  openModalMail() {
+    this.modalService.open(this.modalContent, { centered: true });
+  }
 
 }

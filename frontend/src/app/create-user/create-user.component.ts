@@ -1,5 +1,6 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { User } from 'src/_model/user';
 import { UserService } from '../_services/user.service';
 import { Role } from 'src/_model/role';
@@ -17,12 +18,15 @@ export class CreateUserComponent implements OnInit {
     {'idRole':3,'nomRole':'ORGANISATEUR'}
   ];
   selectedRoles: number[] = [];
-  constructor(private userService: UserService, private router:Router) {}
+  @ViewChild('content')
+  modalContent!: TemplateRef<any>;
+  constructor(private userService: UserService, private router:Router, private modalService:NgbModal) {}
 
   ngOnInit(): void {}
   onSubmit() {
     console.log(this.user);
     this.saveUser();
+    this.openModalCreate();
   }
   saveUser() {
     this.userService.createUser(this.user).subscribe(
@@ -36,5 +40,8 @@ export class CreateUserComponent implements OnInit {
   goToUserList()
   {
     this.router.navigate(['/users']);
+  }
+  openModalCreate() {
+    this.modalService.open(this.modalContent, { centered: true });
   }
 }

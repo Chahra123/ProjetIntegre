@@ -22,6 +22,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenFormComponent } from './token-form/token-form.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -46,7 +49,9 @@ import { NotfoundComponent } from './notfound/notfound.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     AuthGuard,

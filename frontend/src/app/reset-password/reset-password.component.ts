@@ -1,7 +1,8 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserService } from './../_services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,8 +12,9 @@ import { Component, OnInit } from '@angular/core';
 export class ResetPasswordComponent implements OnInit {
 
   token!: string;
-
-  constructor(private userService:UserService,private route:ActivatedRoute,private router:Router) { }
+  @ViewChild('content')
+  modalContent!: TemplateRef<any>;
+  constructor(private userService:UserService,private route:ActivatedRoute,private router:Router,private modalService:NgbModal) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -28,12 +30,16 @@ export class ResetPasswordComponent implements OnInit {
         console.log('Password reset successful:', response);
         // Handle success or show a notification to the user
         this.router.navigate(['/login']);
+        this.openModalPwd();
       },
       (error) => {
         console.error('Error resetting password:', error);
         // Handle error or show an error message to the user
       }
     );
+  }
+  openModalPwd() {
+    this.modalService.open(this.modalContent, { centered: true });
   }
 
 }
