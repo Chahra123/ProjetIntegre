@@ -1,5 +1,6 @@
 package com.wevent.wevent.Entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -49,7 +50,9 @@ public class Utilisateur implements Serializable{
     Date dateNaissance;
 
     Long numTel;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String resetToken;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime resetTokenExpiration;
 
     @OneToMany(mappedBy = "utilisateur")
@@ -91,6 +94,10 @@ public class Utilisateur implements Serializable{
         this.numTel = numTel;
     }
     public boolean isExpired() {
-        return LocalDateTime.now().isAfter(resetTokenExpiration);
+        if(resetTokenExpiration!=null)
+        {
+            return LocalDateTime.now().isAfter(resetTokenExpiration);
+        }
+        return false;
     }
 }
