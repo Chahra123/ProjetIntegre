@@ -28,16 +28,11 @@ import java.util.*;
 @Transactional
 @Slf4j
 public class UserService implements  IUserService, UserDetailsService {
-    @Autowired
     private final UserRepo userRepo;
 
-    @Autowired
     private final RoleRepo roleRepo;
-    @Autowired
     private final ConfirmationTokenService confirmationTokenService;
-    @Autowired
     private final static String USER_NOT_FOUND = "Utilisateur avec l'email %s est introuvable";
-    @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public List<Utilisateur> getUsers() {
@@ -102,8 +97,11 @@ public class UserService implements  IUserService, UserDetailsService {
         }
         log.info("Saving new user to the DB");
         List<Role> persistedRoles = new ArrayList<>();
-        Role roleClient = new Role(2L,"CLIENT");
-        persistedRoles.add(roleClient);
+        Role roleClient = roleRepo.findByNomRole("CLIENT");
+        if(roleClient!=null)
+        {
+            persistedRoles.add(roleClient);
+        }
         utilisateur.setRoles(persistedRoles);
         utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
         utilisateur.setRoles(persistedRoles);
@@ -226,6 +224,7 @@ public class UserService implements  IUserService, UserDetailsService {
     public Utilisateur getUserByResetToken(String token) {
         return userRepo.findByResetToken(token);
     }
+
 
 
 }
