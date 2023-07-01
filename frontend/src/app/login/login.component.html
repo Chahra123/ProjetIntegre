@@ -9,19 +9,33 @@
         <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" ngModel name="userName" id="userName">
+            <input type="email" class="form-control" id="exampleInputEmail1" ngModel name="userName" id="userName" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
+          <div *ngIf="loginForm.controls['userName'].errors && (loginForm.controls['userName'].dirty || loginForm.controls['userName'].touched)" class="text-danger">
+            <div *ngIf="loginForm.controls['userName'].hasError('required')">
+              Email is required.
+            </div>
+            <div *ngIf="loginForm.controls['userName'].hasError('pattern')">
+              Please enter a valid email address.
+            </div>
+          </div>
+
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" ngModel
             name="userPassword"
-            id="userPassword">
+            id="userPassword" required>
+          </div>
+          <div *ngIf="loginForm.controls['userPassword'].errors && (loginForm.controls['userPassword'].dirty || loginForm.controls['userPassword'].touched)" class="text-danger">
+            <div *ngIf="loginForm.controls['userPassword'].hasError('required')">
+              Password is required.
+            </div>
           </div>
           <div class="mb-3 text-center">
             <a routerLink="../users/reset-password" class="text-decoration-none" (click)="forgotPassword(loginForm)">Forgot Password</a>
           </div>
-          <button type="submit" class="btn btn-primary submit" value="Login">Submit</button>
+          <button type="submit" class="btn btn-primary submit" value="Login" [disabled]="loginForm.invalid">Submit</button>
         </form>
       </div>
     </div>
@@ -52,30 +66,73 @@
           <form #signupForm="ngForm" (ngSubmit)="saveUser1()">
             <div class="mb-3">
               <label for="prenom" class="form-label">Prénom</label>
-              <input type="text" class="form-control" id="prenom" [(ngModel)]="user.prenom" name="prenom" required>
+              <input type="text" class="form-control" id="prenom" [(ngModel)]="user.prenom" name="prenom" required #prenom="ngModel">
+            </div>
+            <div *ngIf="prenom.errors && (prenom.dirty || prenom.touched)" class="text-danger">
+              <div *ngIf="prenom.hasError('required')">
+                Firstname is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="nom" class="form-label">Nom</label>
-              <input type="text" class="form-control" id="nom" [(ngModel)]="user.nom" name="nom" required>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="user.nom" name="nom" required #nom="ngModel">
+            </div>
+            <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="text-danger">
+              <div *ngIf="nom.hasError('required')">
+                Lastname is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="dateNaissance" class="form-label">Date de naissance</label>
-              <input type="date" class="form-control" id="dateNaissance" [(ngModel)]="user.dateNaissance" name="dateNaissance" required>
+              <input type="date" class="form-control" id="dateNaissance" [(ngModel)]="user.dateNaissance" name="dateNaissance" required #dateNaissance="ngModel">
+            </div>
+            <div *ngIf="dateNaissance.errors && (dateNaissance.dirty || dateNaissance.touched)" class="text-danger">
+              <div *ngIf="dateNaissance.hasError('required')">
+                Date of birth is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="numTel" class="form-label">Numéro de téléphone</label>
-              <input type="number" class="form-control" id="numTel" [(ngModel)]="user.numTel" name="numTel" required>
+              <input type="number" class="form-control" id="numTel" [(ngModel)]="user.numTel" name="numTel" required #numTel="ngModel" minlength="8" maxlength="8">
+            </div>
+            <div *ngIf="numTel.errors && (numTel.dirty || numTel.touched)" class="text-danger">
+              <div *ngIf="numTel.errors['required']">
+                Phone number is required.
+              </div>
+              <div *ngIf="numTel.errors['minlength']">
+                Phone number should have at least 8 digits.
+              </div>
+              <div *ngIf="numTel.errors['maxlength']">
+                Phone number should have exactly 8 digits.
+              </div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" required>
+              <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" required #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="text-danger">
+              <div *ngIf="email.hasError('required')">
+                Email is required.
+              </div>
+              <div *ngIf="email.hasError('pattern')">
+                Please enter a valid email address.
+              </div>
+              <div *ngIf="emailExistsError" class="text-danger">
+                Email already exists. Please choose a different email.
+              </div>
             </div>
             <div class="mb-3">
               <label for="motDePasse" class="form-label">Mot De Passe</label>
-              <input type="password" class="form-control" id="motDePasse" [(ngModel)]="user.motDePasse" name="motDePasse" required>
+              <input type="password" class="form-control" id="motDePasse" [(ngModel)]="user.motDePasse" name="motDePasse" required #password="ngModel">
             </div>
-            <button type="submit" class="btn btn-primary submit1">Sign Up</button>
+            <div *ngIf="password.errors && (password.dirty || password.touched)" class="text-danger">
+              <div *ngIf="password.hasError('required')">
+                Password is required.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit1" [disabled]="signupForm.invalid">Sign Up</button>
           </form>
         </div>
       </div>

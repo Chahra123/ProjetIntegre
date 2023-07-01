@@ -59,6 +59,12 @@ public class UserController {
         userService.addRoleToUser(f.getEmail(), f.getNomRole());
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/check-email-exists")
+    public boolean checkIfMailExists(@RequestParam String email)
+    {
+        return userService.ifEmailExists(email);
+    }
 }
 @Data
 class RoleToUserForm

@@ -86,4 +86,11 @@ export class UserService {
 
     return this.httpclient.post(url, body);
   }
+
+  public checkEmailExists(email: string): Observable<boolean> {
+    const url = `${this.PATH_OF_API}/users/check-email-exists`;
+    const body = new HttpParams().set('email', email);
+
+    return this.httpclient.post<boolean>(url, body);
+  }
 }

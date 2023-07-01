@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   showLogin: boolean = true;
   user: any = {};
   signupForm: any;
+  emailExistsError:boolean = false;
   @ViewChild('content')
   modalContent!: TemplateRef<any>;
   constructor(
@@ -55,15 +56,22 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-saveUser1() {
-    this.userService.signup(this.user).subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => console.log(error)
-    );
-
-    this.router.navigate(['/tokenform']);
+  saveUser1() {
+    this.userService.checkEmailExists(this.user.email).subscribe((exists) => {
+      if (exists) {
+        this.emailExistsError = true; // Définir la variable à true si l'e-mail existe déjà
+      } else {
+        // L'e-mail n'existe pas, procéder à l'enregistrement de l'utilisateur
+        this.userService.signup(this.user).subscribe(
+          (data) => {
+            console.log(data);
+            // Rediriger vers la page de tokenform ou effectuer d'autres actions
+            this.router.navigate(['/tokenform']);
+          },
+          (error) => console.log(error)
+        );
+      }
+    });
   }
 
   forgotPassword(loginForm: NgForm) {
