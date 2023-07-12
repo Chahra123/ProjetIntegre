@@ -1,9 +1,12 @@
 package com.wevent.wevent.Services;
 
 
+import com.wevent.wevent.Entities.ERole;
 import com.wevent.wevent.Entities.Reservation;
+import com.wevent.wevent.Entities.Role;
 import com.wevent.wevent.Entities.Utilisateur;
 import com.wevent.wevent.Repositories.ReservationRepo;
+import com.wevent.wevent.Repositories.UserRepo;
 import com.wevent.wevent.Response.MessageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationService implements IReservationService {
     private final ReservationRepo reservationRepo;
+    UserRepo userRepo;
+    NotificationService notificationService;
 
     @Override
     public List<Reservation> getAllReservations() {
@@ -28,7 +33,15 @@ public class ReservationService implements IReservationService {
         try{
             rs.setDateReservation(new Date());
             reservationRepo.save(rs);
-            return ResponseEntity.ok().body(new MessageResponse("Reservation ajoutée avec succès"));
+            List<Utilisateur> utilisateurs = userRepo.findAll();
+            for(Utilisateur u: utilisateurs){
+                for(Role r: u.getRoles()){
+                    if(r.getNomRole().equals(ERole.ADMIN) || r.getNomRole().equals(ERole.ORGANISATEUR)){
+                        notificationService.notifForAdd(rs,u);
+                    }
+                }
+            }
+            return ResponseEntity.ok().body(new MessageResponse("Reservation effectuée avec succès"));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Erreur d'ajout"));
@@ -44,7 +57,7 @@ public class ReservationService implements IReservationService {
                         .body(new MessageResponse("Reservation introuvable"));
             }
             reservationRepo.deleteById(id);
-           return ResponseEntity.ok().body(new MessageResponse("Reservation supprimée avec succès"));
+           return ResponseEntity.ok().body(new MessageResponse("Reservation annulée avec succès"));
         }catch (Exception e){
           return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Erreur de suppression"));

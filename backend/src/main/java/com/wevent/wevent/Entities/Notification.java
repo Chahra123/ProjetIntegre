@@ -23,6 +23,8 @@ public class Notification implements Serializable {
     Long idNotif;
     String ContenuNotif;
 
+    Boolean rappel;
+
     @ManyToMany
     @JoinTable(name = "notification_utilisateur",
             joinColumns = @JoinColumn(name = "idNotif"),
@@ -33,5 +35,17 @@ public class Notification implements Serializable {
 
     @OneToOne(mappedBy = "notification")
     private Reclamation reclamation;
+
+    @ManyToOne
+    Reservation reservation;
+
+   @OneToOne(mappedBy = "notification", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Avis avis;
+
+    @OneToOne(mappedBy = "notification")
+    Question question;
+
+    @OneToOne(mappedBy = "notification")
+    ReponseQuestion reponseQuestion;
 
 }

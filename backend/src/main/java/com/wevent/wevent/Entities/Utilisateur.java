@@ -54,7 +54,7 @@ public class Utilisateur implements Serializable{
     @OneToMany(mappedBy = "auteur")
     Set<ReponseQuestion> reponseQuestions = new HashSet<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "utilisateur")
     Set<Question> questions = new HashSet<>();
 
     @OneToMany(mappedBy = "commentateur")

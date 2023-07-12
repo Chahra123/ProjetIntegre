@@ -44,8 +44,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/authenticate", "/registration/*").permitAll()
-                .antMatchers("/events/**").hasAnyAuthority("ADMIN","ORGANISATEUR")
-                .antMatchers("/users*").hasAnyAuthority("ADMIN","ORGANISATEUR")
+               // .antMatchers("/events/**").hasAnyAuthority("ADMIN","ORGANISATEUR")
+                //.antMatchers("/events/**").permitAll()
+                //.antMatchers("/users*").hasAnyAuthority("ADMIN","ORGANISATEUR")
+                //.antMatchers("/users*").permitAll()
                 .antMatchers("/reservation/*").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -55,7 +57,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         ;
 
-        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        //httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

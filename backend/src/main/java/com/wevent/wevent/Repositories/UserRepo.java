@@ -1,5 +1,6 @@
 package com.wevent.wevent.Repositories;
 
+import com.wevent.wevent.Entities.ERole;
 import com.wevent.wevent.Entities.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,4 +25,5 @@ public interface UserRepo extends JpaRepository<Utilisateur,Long> {
             value = "UPDATE users SET users.enabled = TRUE WHERE users.email = ?1",
             nativeQuery = true)
     int enableUser(String email);
+
 }

@@ -47,6 +47,9 @@ public class Evenement implements Serializable {
     @OneToMany(mappedBy = "evenement")
     Set<Reservation> reservations = new HashSet<>();
 
+    @OneToMany(mappedBy = "evenement")
+    Set<Notification> notifications = new HashSet<>();
+
     public Evenement(String nomEvenement, String descriptionEvenement, Date dateDebut, Date dateFin, Double prix, int nbrePersonnes, String image, ETypeEvenement typeEvenement, String autreType, Boolean interesse, Boolean statut) {
         this.nomEvenement = nomEvenement;
         this.descriptionEvenement = descriptionEvenement;

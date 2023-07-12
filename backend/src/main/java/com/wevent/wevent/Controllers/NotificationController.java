@@ -24,7 +24,19 @@ public class NotificationController {
         return iNotificationService.getNotification(idNotif);
     }
 
-    @PostMapping
+    @GetMapping("/{userId}")
+    public List<Notification> getNotifForAdminOrganisateur(@PathVariable("userId") Long userId) {
+        List<Notification> list = iNotificationService.getNotifsForAdminAndOrganisateur(userId);
+        return list;
+    }
+    @GetMapping("/{userId}")
+    public List<Notification> getNotifForClient(@PathVariable("userId") Long userId) {
+        List<Notification> list = iNotificationService.getNotifsForClient(userId);
+        return list;
+    }
+
+
+    /*@PostMapping
     public Notification addNotifaction(@RequestBody Notification notif) {
         Notification notification = iNotificationService.addNotification(notif);
         return notification;
@@ -38,6 +50,6 @@ public class NotificationController {
     @PutMapping
         public Notification updateNotification(@RequestBody Notification notif) {
         return iNotificationService.updateNotification(notif);
-    }
+    }*/
 
 }

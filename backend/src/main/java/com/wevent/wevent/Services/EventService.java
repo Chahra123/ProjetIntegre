@@ -59,9 +59,9 @@ public class EventService implements IEventService{
         if(evenement==null)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new MessageResponse("Evénement introuvable"));
+                    .body(new MessageResponse("Evénement introuvable"));
         }
-                eventRepo.deleteById(eventId);
+        eventRepo.deleteById(eventId);
         return ResponseEntity.ok().body(new MessageResponse("Evenement supprimé avec succès"));
     }
 

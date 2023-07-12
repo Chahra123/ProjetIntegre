@@ -24,10 +24,13 @@ public class Question implements Serializable {
     Boolean statutQuestion;
     Date dateCreationQuestion;
 
-    @ManyToMany(mappedBy = "questions")
-    Set<Utilisateur> utilisateurs = new HashSet<>();
+    @ManyToOne
+    Utilisateur utilisateur;
     @OneToMany(mappedBy = "question")
     Set<ReponseQuestion> reponseQuestions = new HashSet<>();
 
+    @OneToOne
+    @JoinColumn(name = "idNotif")
+    private Notification notification;
 
 }
