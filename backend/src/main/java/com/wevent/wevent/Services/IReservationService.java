@@ -16,4 +16,11 @@ public interface IReservationService {
 
     ResponseEntity<?> getReservation(Long id);
 
+    public void affecterResrvationAUtislisateur(Long idReservation, long idUser);
+
+    void affecterReservationAEvenement(Long idReservation, long idEvenement);
+
+    int nbrPers(Long idEvenement, Long idReservation);
+
+
 }

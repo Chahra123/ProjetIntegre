@@ -9,30 +9,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notif")
+@RequestMapping("notif")
 @RequiredArgsConstructor
 public class NotificationController {
     private final INotificationService iNotificationService;
+
 
     @GetMapping
     public List<Notification> getAllNotifications() {
         List<Notification> list = iNotificationService.getAllNotifications();
         return list;
     }
-    @GetMapping("/{idNotif}")
+
+    @GetMapping("/one/{idNotif}")
     public Notification getNotification(@PathVariable("idNotif") Long idNotif) {
         return iNotificationService.getNotification(idNotif);
     }
 
-    @GetMapping("/{userId}")
-    public List<Notification> getNotifForAdminOrganisateur(@PathVariable("userId") Long userId) {
-        List<Notification> list = iNotificationService.getNotifsForAdminAndOrganisateur(userId);
+    @GetMapping("spec/{userId}")
+    public List<Notification> getNotifForSpecefic(@PathVariable("userId") Long userId) {
+        List<Notification> list = iNotificationService.getNotifsForSpecefic(userId);
         return list;
     }
-    @GetMapping("/{userId}")
-    public List<Notification> getNotifForClient(@PathVariable("userId") Long userId) {
-        List<Notification> list = iNotificationService.getNotifsForClient(userId);
-        return list;
+
+
+    // @GetMapping("/rappel/{userId}")
+    //  public String triggerReminder(Long userId){
+    //    return iNotificationService.triggerReminder(@PathVariable)
+
     }
 
 
@@ -52,4 +56,4 @@ public class NotificationController {
         return iNotificationService.updateNotification(notif);
     }*/
 
-}
+

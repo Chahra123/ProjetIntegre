@@ -11,30 +11,12 @@ import java.util.List;
 public interface NotificationRepo extends JpaRepository<Notification,Long> {
 
     @Query(
-            value = "SELECT  notification.id_notif,notification.contenu_notif        \n" +
-                    "FROM\n" +
-                    "                    notification,users,users_roles,role, notification_utilisateur\n" +
-                    "                    WHERE\n" +
-                    "                    notification_utilisateur.id_utilisateur=users.id_utilisateur\n" +
-                    "                    AND users.id_utilisateur= ?1\n" +
-                    "                    AND users.id_utilisateur = users_roles.utilisateur_id_utilisateur\n" +
-                    "                    AND role.id_role=users_roles.roles_id_role\n" +
-                    "                    AND (role.nom_role='ADMIN' OR role.nom_role='ORGANISATEUR')",
+            value = "SELECT * "+
+                    "FROM notification_utilisateur, notification " +
+            "WHERE notification_utilisateur.id_utilisateur = ?1 " +
+            "AND notification_utilisateur.id_notif = notification.id_notif ",
             nativeQuery = true)
-    List<Notification> getNotifsForAdminAndOrganisateur(long userId);
-
-    @Query(
-            value = "SELECT  notification.id_notif,notification.contenu_notif        \n" +
-                    "FROM\n" +
-                    "                    notification,users,users_roles,role, notification_utilisateur\n" +
-                    "                    WHERE\n" +
-                    "                    notification_utilisateur.id_utilisateur=users.id_utilisateur\n" +
-                    "                    AND users.id_utilisateur= ?1\n" +
-                    "                    AND users.id_utilisateur = users_roles.utilisateur_id_utilisateur\n" +
-                    "                    AND role.id_role=users_roles.roles_id_role\n" +
-                    "                    AND (role.nom_role='CLIENT')",
-            nativeQuery = true)
-    List<Notification> getNotifsForClient(long userId);
+    List<Notification> getNotifsForSpecefic(long userId);
 
     @Query(
             value = "SELECT  notification.id_notif,notification.contenu_notif        \n" +

@@ -1,5 +1,6 @@
 package com.wevent.wevent.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -63,9 +64,11 @@ public class Utilisateur implements Serializable{
     @ManyToMany
     Set<Evenement> evenements = new HashSet<>();
 
-    @OneToMany(mappedBy = "utilisateur")
+    @JsonIgnore
+    @OneToMany(mappedBy = "utilisateur",fetch = FetchType.EAGER)
     Set<Reservation> reservations = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "utilisateurs")
     Set<Notification> notifications = new HashSet<>();
 
