@@ -1,5 +1,6 @@
 package com.wevent.wevent.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,6 +45,7 @@ public class Evenement implements Serializable {
     @OneToMany(mappedBy = "evenement")
     Set<Reclamation> reclamations = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "evenement")
     Set<Reservation> reservations = new HashSet<>();
 

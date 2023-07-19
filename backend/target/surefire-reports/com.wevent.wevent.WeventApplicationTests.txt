@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.wevent.wevent.WeventApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.439 s - in com.wevent.wevent.WeventApplicationTests
