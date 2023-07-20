@@ -48,13 +48,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/reset-password").permitAll()
 
 
-                .antMatchers(HttpMethod.GET,"/users**").permitAll()
-                .antMatchers(HttpMethod.POST,"/users**").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET,"/users/check-email-exists/*").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/email/*").permitAll()
+                .antMatchers(HttpMethod.GET,"/users").permitAll()
+                .antMatchers(HttpMethod.POST,"/users").hasAnyAuthority("ADMIN","ORGANISATEUR")
                 .antMatchers(HttpMethod.PUT,"/users**").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/users**").hasAnyAuthority("ADMIN")
 
-                .antMatchers("/events/**").hasAnyAuthority("ADMIN","ORGANISATEUR")
+                .antMatchers("/events/**").permitAll()
                 .antMatchers("/reservation/*").permitAll()
+                .antMatchers("/societies**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

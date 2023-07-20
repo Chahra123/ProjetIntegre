@@ -3,6 +3,8 @@ import { UserAuthService } from '../_services/user-auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { User } from 'src/_model/user';
+import jwt_decode from 'jwt-decode';
+
 
 @Component({
   selector: 'app-header',
@@ -31,9 +33,31 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    const token = localStorage.getItem('jwtToken');
+    console.log('Token:', token);
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      const email = decodedToken.sub;
+      console.log('Email:', email);
+
+      this.userService.getUserByEmail(email).subscribe(
+        data => {
+          console.log('User:', data);
+          this.loggedInUserName = `${data.prenom} ${data.nom}`;
+          console.log('LoggedInUserName:', this.loggedInUserName);
+        },
+        (error) => {
+          console.error('Error fetching user:', error);
+        }
+      );
+    }
+  }
+
   public isLoggedIn() {
     return this.userAuthService.isLoggedIn();
+
   }
   public logout() {
     this.userAuthService.clear();

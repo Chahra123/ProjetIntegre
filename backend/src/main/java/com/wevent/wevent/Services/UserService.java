@@ -45,6 +45,11 @@ public class UserService implements  IUserService, UserDetailsService {
     }
 
     @Override
+    public Utilisateur getUserByEmail(String email) {
+        return userRepo.findByEmail(email).orElse(null);
+    }
+
+    @Override
     public ResponseEntity<?> updateUser(Long userId,Utilisateur userDetails) {
         Utilisateur u = userRepo.findById(userId).orElse(null);
         if (u==null)

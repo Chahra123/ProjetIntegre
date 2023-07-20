@@ -5,10 +5,12 @@ import com.wevent.wevent.Response.MessageResponse;
 import com.wevent.wevent.Services.IEventService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -21,7 +23,19 @@ public class EventController {
         return iEventService.getEvents();
     }
 
-    @GetMapping("/{eventId}")
+
+    @GetMapping("/society/{societyId}")
+    public Set<Evenement> getEventsForSociety(@PathVariable Long societyId) {
+        return iEventService.getEventsForSociety(societyId);
+    }
+
+
+    @GetMapping("/affect/{idSociety}/{idEvent}")
+    public void affectEventForSociety(@PathVariable Long idSociety, @PathVariable Long idEvent) {
+        iEventService.affectEventForSociety(idSociety,idEvent);
+    }
+
+        @GetMapping("/{eventId}")
     public ResponseEntity<MessageResponse> getEvent(@PathVariable Long eventId) {
             return iEventService.getEvent(eventId);
     }

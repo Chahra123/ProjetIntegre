@@ -93,4 +93,9 @@ export class UserService {
 
     return this.httpclient.post<boolean>(url, body);
   }
+  getUserByEmail(email:string):Observable<User>
+  {
+    const url = `${this.PATH_OF_API}/email/${email}`;
+    return this.httpclient.get<User>(url);
+  }
 }

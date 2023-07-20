@@ -22,12 +22,20 @@ public class SocieteService implements ISocieteService{
 
     @Override
     public ResponseEntity<?> addSociety(Societe s) {
+        Societe societe = societeRepo.findByNomSociete(s.getNomSociete());
         if (societeRepo.existsByNomSociete(s.getNomSociete()))
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Societé existe deja"));
         }
-        societeRepo.save(s);
+        societe = new Societe();
+        societe.setNomSociete(s.getNomSociete());
+        societe.setLogoSociete(s.getLogoSociete());
+        societe.setEmail(s.getEmail());
+        societe.setAddresse(s.getAddresse());
+        societe.setNumTel(s.getNumTel());
+        societe.setEvenements(s.getEvenements());
+        societeRepo.save(societe);
         return ResponseEntity.ok().body(new MessageResponse("Societé ajoutée avec succès"));
 
     }

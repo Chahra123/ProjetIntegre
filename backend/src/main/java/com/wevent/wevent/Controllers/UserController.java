@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -43,6 +42,12 @@ public class UserController {
         return userService.getUser(userId);
     }
 
+    @GetMapping("email/{email}")
+    public Utilisateur getUserByEmail(@PathVariable String email)
+    {
+        return userService.getUserByEmail(email);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody Utilisateur utilisateur)
     {
@@ -60,8 +65,8 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/check-email-exists")
-    public boolean checkIfMailExists(@RequestParam String email)
+    @GetMapping("/check-email-exists/{email}")
+    public boolean checkIfMailExists(@PathVariable String email)
     {
         return userService.ifEmailExists(email);
     }

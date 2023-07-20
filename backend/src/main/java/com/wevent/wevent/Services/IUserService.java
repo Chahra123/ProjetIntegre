@@ -27,4 +27,5 @@ public interface IUserService {
     Utilisateur validateResetToken(String resetToken);
     void resetUserPassword(Utilisateur utilisateur, String newPassword);
     Utilisateur getUserByResetToken(String token);
+    public Utilisateur getUserByEmail(String email);
     }

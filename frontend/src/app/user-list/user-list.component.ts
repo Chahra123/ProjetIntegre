@@ -11,6 +11,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
+  currentUserID!: number;
   @ViewChild('content')
   modalContent!: TemplateRef<any>;
   constructor(private userService: UserService, private router: Router,private modalService:NgbModal) {}
@@ -43,5 +44,11 @@ export class UserListComponent implements OnInit {
   }
   openModalDelete() {
     this.modalService.open(this.modalContent, { centered: true });
+  }
+
+  confirmDeleteUser(userId:number) {
+    if (confirm("Voulez-vous vraiment supprimer l'utilisateur?")) {
+      this.deleteUser(userId);
+    }
   }
 }

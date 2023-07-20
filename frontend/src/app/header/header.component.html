@@ -40,24 +40,15 @@
             >Users</a
           >
         </li>
-        <li *ngIf="isLoggedIn()" class="nav-item p-1 rounded">
+        <li class="nav-item p-1 rounded">
           <div class="dropdown">
-            <button
-              class="dropdown-toggle nav-link"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+            <button class="dropdown-toggle nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="material-icons">person</i>
-              <span>John Doe</span>
+              <span>{{ loggedInUserName}}</span>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">Profile</a>
-              <a class="dropdown-item" routerLink="/reservations" href="#"
-                >Reservations</a
-              >
+              <a class="dropdown-item" routerLink="/reservations" href="#">Reservations</a>
             </div>
           </div>
         </li>

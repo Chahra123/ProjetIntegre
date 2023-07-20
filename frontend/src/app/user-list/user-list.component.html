@@ -7,51 +7,52 @@
     </button>
   </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Nom</th>
-      <th>Prénom</th>
-      <th>Email</th>
-      <th>Date Naissance</th>
-      <th>Numéro Téléphone</th>
-      <th>Role(s)</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{user.idUtilisateur}}</td>
-      <td>{{user.nom}}</td>
-      <td>{{user.prenom}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.dateNaissance}}</td>
-      <td>{{user.numTel}}</td>
-      <td>
-        <div class="tags">
-          <span class="tag" *ngFor="let role of user.roles">{{role.nomRole}}</span>
-        </div>
-      </td>
-      <td>
-        <button (click)="updateUser(user.idUtilisateur)" class="btn btn-info">Mettre à jour</button>
-        <button (click)="deleteUser(user.idUtilisateur)" class="btn btn-danger" style="margin-left: 10px;">Supprimer</button>
-        <button (click)="viewUser(user.idUtilisateur)" class="btn btn-info" style="margin-left: 10px;">Aperçu</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Date Naissance</th>
+        <th>Numéro Téléphone</th>
+        <th>Role(s)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.idUtilisateur}}</td>
+        <td>{{user.nom}}</td>
+        <td>{{user.prenom}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.dateNaissance}}</td>
+        <td>{{user.numTel}}</td>
+        <td>
+          <div class="tags">
+            <span class="tag" *ngFor="let role of user.roles">{{role.nomRole}}</span>
+          </div>
+        </td>
+        <td>
+          <button (click)="updateUser(user.idUtilisateur)" class="btn btn-info">Mettre à jour</button>
+          <button (click)="confirmDeleteUser(user.idUtilisateur)" class="btn btn-danger" style="margin-left: 10px;">Supprimer</button>
+          <button (click)="viewUser(user.idUtilisateur)" class="btn btn-info" style="margin-left: 10px;">Aperçu</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Utilisateurs</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="mb-3">
-        <label for="dateOfBirth">Utilisateur supprimé avec succès</label>
-      </div>
-    </form>
-  </div>
-</ng-template>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Utilisateurs</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <label for="dateOfBirth">Utilisateur supprimé avec succès</label>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

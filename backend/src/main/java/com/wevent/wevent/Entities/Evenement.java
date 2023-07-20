@@ -1,5 +1,6 @@
 package com.wevent.wevent.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -46,6 +47,11 @@ public class Evenement implements Serializable {
 
     @OneToMany(mappedBy = "evenement")
     Set<Reservation> reservations = new HashSet<>();
+
+
+    @ManyToOne
+            @JsonIgnore
+    Societe societe;
 
     public Evenement(String nomEvenement, String descriptionEvenement, Date dateDebut, Date dateFin, Double prix, int nbrePersonnes, String image, ETypeEvenement typeEvenement, String autreType, Boolean interesse, Boolean statut) {
         this.nomEvenement = nomEvenement;

@@ -5,6 +5,7 @@ import com.wevent.wevent.Response.MessageResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IEventService {
 
@@ -15,4 +16,7 @@ public interface IEventService {
 
     ResponseEntity<?> addEvent(Evenement evenement);
 
+    Set<Evenement> getEventsForSociety(Long societyId);
+
+    void affectEventForSociety(Long idSociety,Long idEvent);
 }

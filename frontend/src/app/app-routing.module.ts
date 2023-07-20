@@ -14,6 +14,7 @@ import { TokenFormComponent } from './token-form/token-form.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
+
 const routes: Routes = [
   {path:'', redirectTo:'home',pathMatch:'full'},
   { path: 'home', component: HomeComponent },

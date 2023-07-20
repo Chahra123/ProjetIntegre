@@ -47,5 +47,4 @@ public interface UserRepo extends JpaRepository<Utilisateur,Long> {
             nativeQuery = true)
     Object getUserByHisLastAndFirstName(long userId);
     Utilisateur findByResetToken(String resetToken);
-
 }
