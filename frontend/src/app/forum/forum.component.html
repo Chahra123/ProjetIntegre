@@ -1,0 +1,59 @@
+<div class="forum-container">
+  <div class="top_container row">
+    <h2>Forum</h2>  
+    <div class="add-question-button">
+      <button mat-raised-button color="primary" (click)="openDialog()">ADD QUESTION</button>
+    </div>
+  </div>
+    <!-- Questions -->
+    <div *ngFor="let question of questions" class="card question-card">
+      <div class="card-body">
+        <div class="user-info row">
+         <mat-icon>supervisor_account</mat-icon>
+         <div class="question-person">
+              <span>{{ question.user.name }}</span>
+         </div>
+         <div class="question-time">
+             <span class="question-time">{{ question.createdAt | date: 'medium' }}</span>
+         </div>
+         <button mat-icon-button>
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+        </div>
+        <p class="card-text">{{ question.content }}</p>
+        <hr>
+  
+        <!-- Answers -->
+        <div class="card answers" *ngIf="question.answers.length > 0">
+          <div class="card-body answer" *ngFor="let answer of question.answers" [ngClass]="{'green': answer.top_answer}">
+            <div class="user-info row">
+              <mat-icon>account_circle</mat-icon>
+              <div class="answer-person">
+                  <span class="answer-person">{{ answer.user.name }}</span>
+              </div>
+              <div class="answer-time">
+                  <span class="answer-time">{{ answer.createdAt | date: 'medium' }}</span>
+              </div>
+            </div>
+            <div class="answer-content row">
+              <p>{{ answer.content }}</p>
+              <button mat-icon-button class="top_answer">
+                <mat-icon>done_outline</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Answer Form -->
+        <form (ngSubmit)="addAnswer(question)" class="mb-3">
+          <textarea [(ngModel)]="newAnswerContent" name="answerContent" placeholder="Write your answer..."
+            class="form-control"></textarea>
+          <button type="submit" class="btn btn-primary">Submit Answer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

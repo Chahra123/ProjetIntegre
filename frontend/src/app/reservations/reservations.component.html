@@ -1,0 +1,22 @@
+<div class="reservations-container">
+    <h2>Reservations</h2>
+  
+    <div class="reservation-card" *ngFor="let reservation of reservations">
+      <div class="reservation-info">
+        <p><strong>Event Name:</strong> {{ reservation.eventName }}</p>
+        <p><strong>Place:</strong> {{ reservation.place }}</p>
+        <p><strong>Date:</strong> {{ reservation.date }}</p>
+        <p><strong>Number of Places:</strong> {{ reservation.numberOfPlaces }}</p>
+      </div>
+  
+      <div class="reservation-payment">
+        <p><strong>Payment Status:</strong> {{ reservation.paymentStatus }}</p>
+        <p><strong>Payment Method:</strong> {{ reservation.paymentMethod }}</p>
+      </div>
+  
+      <div class="button-section">
+        <button *ngIf="reservation.paymentStatus === 'Waiting (Not Paid)'" class="payment-button">Payment</button>
+        <button class="delete-button">Delete</button>
+      </div>
+    </div>
+  </div>

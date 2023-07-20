@@ -1,0 +1,47 @@
+.reservations-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 100px;
+    width: 100%;
+    padding-left: 25%;
+  }
+  
+  .reservation-card {
+    width: 40%;
+    margin: 0 20px 20px 0;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reservation-info {
+    margin-bottom: 10px;
+  }
+  
+  .button-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .delete-button,
+  .payment-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    cursor: pointer;
+  }
+  
+  .payment-button {
+    background-color: #f0ad4e;
+  }
+  
+  .delete-button:hover,
+  .payment-button:hover {
+    background-color: #0056b3;
+  }

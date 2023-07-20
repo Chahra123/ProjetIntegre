@@ -1,0 +1,36 @@
+/*li.not-active{
+   background-color: rgb(95, 146, 161);
+}
+
+li.active{
+    background-color: rgb(6, 46, 58);
+} */
+
+section{
+    background-color: #669bbc25; 
+    padding: 3% 0%;
+    padding-bottom: 0.5%;
+    background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+
+}
+
+h2{
+color: rgb(17, 54, 109);
+
+}
+h3{
+margin-bottom: 25px;
+font-size: 35px;
+color: #1768AC;
+}
+.reccom{
+background: url("../../assets/images/backgroundx.png");
+width:100%;
+}
+
+.card-body{
+padding: 10% 0%;
+/*padding-left: 30%;*/
+text-align : center;
+width: 45%;
+}

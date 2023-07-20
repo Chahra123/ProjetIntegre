@@ -1,0 +1,27 @@
+<div class="contactez-nous">
+    <h1>Nouvelle Reclamation</h1>
+    <p>n'hesitez pas passer votre réclamation si besoin !</p>
+    <form action="/page-traitement-donnees" method="post">
+    <div>
+    <label for="nom">Votre nom</label>
+    <input type="text" id="nom" name="nom" placeholder="nom" required>
+    </div>
+    <div>
+    <label for="sujet">Quel est le sujet de votre reclamation ?</label>
+    <select name="sujet" id="sujet" required>
+    <option value="" disabled selected hidden>Choisissez le sujet de votre message</option>
+    <option value="probleme-compte">Problème avec mon compte</option>
+    <option value="question-produit">Question à propos d’un produit</option>
+    <option value="suivi-commande">Suivi de ma commande</option>
+    <option value="autre">Autre...</option>
+    </select>
+    </div>
+    <div>
+    <label for="message">Votre message</label>
+    <textarea id="message" name="message" placeholder="Bonjour, je vous contacte car...." required></textarea>
+    </div>
+    <div>
+    <button class="btn btn-success">Envoyer ma reclamation</button>
+    </div>
+    </form>
+    </div>

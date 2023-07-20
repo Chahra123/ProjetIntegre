@@ -1,8 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { User } from 'src/_model/user';
-import { UserService } from '../_services/user.service';
+import { User } from '../_model/User';
+import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material/dialog'
+import { CreateUserComponent } from '../create-user/create-user.component';
+
+//import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-list',
@@ -11,10 +15,13 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
+  showUsers: boolean = true;
+  showRegistration: boolean = false;
+  isOpen: boolean[] = [];
   currentUserID!: number;
   @ViewChild('content')
   modalContent!: TemplateRef<any>;
-  constructor(private userService: UserService, private router: Router,private modalService:NgbModal) {}
+  constructor(private userService: UserService, private router: Router, private httpClient:HttpClient, private matDialog:MatDialog) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -43,12 +50,17 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/users/create']);
   }
   openModalDelete() {
-    this.modalService.open(this.modalContent, { centered: true });
+   // this.modalService.open(this.modalContent, { centered: true });
   }
 
   confirmDeleteUser(userId:number) {
     if (confirm("Voulez-vous vraiment supprimer l'utilisateur?")) {
       this.deleteUser(userId);
     }
+  }
+  openDialog(){
+    this.matDialog.open(CreateUserComponent,{
+      width : '500px',
+    })
   }
 }

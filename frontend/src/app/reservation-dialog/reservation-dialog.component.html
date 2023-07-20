@@ -1,0 +1,45 @@
+<mat-card class="reservation-dialog">
+    <mat-card-title>Event Reservation</mat-card-title>
+    <form>
+      <mat-form-field>
+        <mat-label>Phone Number:</mat-label>
+        <input matInput type="tel" name="phoneNumber" required>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>Email:</mat-label>
+        <input matInput type="email" name="email" required>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>Date:</mat-label>
+        <input matInput type="date" name="date" required>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>Number of Places:</mat-label>
+        <input matInput type="number" name="numberOfPlaces" value="1" required>
+      </mat-form-field>
+      
+      <mat-card-subtitle>Payment</mat-card-subtitle>
+      <mat-form-field>
+        <mat-label>Card Number:</mat-label>
+        <input matInput type="text" name="cardNumber" required>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>Expiration Date:</mat-label>
+        <input matInput type="text" name="expirationDate" required>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>CVV:</mat-label>
+        <input matInput type="text" name="cvv" required>
+      </mat-form-field>
+      
+      <div class="button-row">
+        <button mat-raised-button color="accent">Save</button>
+        <button mat-raised-button color="primary">Submit</button>
+      </div>
+    </form>
+  </mat-card>

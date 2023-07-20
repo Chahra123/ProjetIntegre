@@ -1,4 +1,3 @@
-import { UserService } from '../_services/user.service';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -8,7 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserAuthService } from 'src/app/_services/user-auth.service';
+import { UserAuthService } from '../service/user-auth.service';
+import { UserService } from '../service/user.service';
 
 @Injectable({
   providedIn: 'root',

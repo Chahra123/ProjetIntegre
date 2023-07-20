@@ -1,0 +1,9 @@
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
+  .button-row button:first-child {
+    margin-right: 10px;
+  }

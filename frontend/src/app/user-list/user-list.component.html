@@ -2,9 +2,7 @@
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
   <h2>Users List</h2>
   <div class="d-flex justify-content-end" style="margin-bottom: 10px;">
-    <button class="btn btn-primary" (click)="addUser()">
-      <i class="fa fa-plus"></i> Add User
-    </button>
+    <button mat-raised-button color="primary" (click)="openDialog()">Add User</button>
   </div>
 
   <table class="table table-striped">

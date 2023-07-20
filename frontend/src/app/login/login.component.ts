@@ -1,28 +1,24 @@
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { UserService } from '../_services/user.service';
-import { UserAuthService } from '../_services/user-auth.service';
+import { Component, OnInit} from '@angular/core';
+import { UserService } from '../service/user.service';
+import { UserAuthService } from '../service/user-auth.service';
 import { Router } from '@angular/router';
-import { User } from 'src/_model/user';
-import { LoginRequest } from 'src/_model/LoginRequest';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   showLogin: boolean = true;
   user: any = {};
   signupForm: any;
   emailExistsError:boolean = false;
-  @ViewChild('content')
-  modalContent!: TemplateRef<any>;
+
   constructor(
     private userService: UserService,
     private userAuthService: UserAuthService,
-    private router:Router,private modalService:NgbModal
+    private router:Router
   ) {}
 
 
@@ -30,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.userAuthService.showLogin$.subscribe((showLogin) => {
       this.showLogin = showLogin;
     });
+    this.showLogin = true;
   }
 
   login(loginForm: NgForm) {
@@ -92,7 +89,7 @@ export class LoginComponent implements OnInit {
     );
   }
   openModalMail() {
-    this.modalService.open(this.modalContent, { centered: true });
+    //this.modalService.open(this.modalContent, { centered: true });
   }
 
 }

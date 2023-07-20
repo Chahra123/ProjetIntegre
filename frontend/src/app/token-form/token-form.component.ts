@@ -1,8 +1,8 @@
-import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../service/user.service';
+import { UserAuthService } from '../service/user-auth.service';
 
 @Component({
   selector: 'app-token-form',

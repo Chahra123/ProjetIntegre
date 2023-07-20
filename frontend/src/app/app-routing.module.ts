@@ -1,38 +1,56 @@
-import { NgModule, Component } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { OrganisateurComponent } from './organisateur/organisateur.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AboutComponent } from './about/about.component';
+import { AppComponent } from './app.component';
+import { SkillsComponent } from './skills/skills.component';
+import { CurriculumVitaeComponent } from './curriculum-vitae/curriculum-vitae.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from 'src/app/_auth/auth.guard';
+import { SocieteComponent } from './societe/societe.component';
+import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './contact/contact.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { ForumComponent } from './forum/forum.component';
+import { EventsComponent } from './events/events.component';
+import { AjoutComponent } from './ajout/ajout.component';
+import { PrecedentComponent } from './precedent/precedent.component';
+import { DashComponent } from './dash/dash.component';
 import { UserListComponent } from './user-list/user-list.component';
-import { CreateUserComponent } from './create-user/create-user.component';
-import { UpdateUserComponent } from './update-user/update-user.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenFormComponent } from './token-form/token-form.component';
-import { NotfoundComponent } from './notfound/notfound.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
+import { CreateUserComponent } from './create-user/create-user.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 const routes: Routes = [
-  {path:'', redirectTo:'home',pathMatch:'full'},
+  { path: '', component:HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'organisateur', component: OrganisateurComponent , canActivate:[AuthGuard],data:{roles:['ORGANISATEUR']}},
+  { path: 'dashboard', component: DashComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: UserListComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
-  { path: 'users/create', component: CreateUserComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
-  { path: 'users/update/:id', component: UpdateUserComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
-  { path: 'users/details/:id', component: UserDetailsComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
-  { path: 'dashboard', component: DashboardComponent , canActivate:[AuthGuard],data:{roles:['ADMIN']}},
+  { path: 'skills', component: SkillsComponent },
+  { path: 'ajout-reclamation', component: AjoutComponent },
+  { path: 'precedent-reclamation', component: PrecedentComponent },
+  { path: 'reservations', component: ReservationsComponent },
+  { path: 'projects', component: ProjectsComponent },
+  { path: 'forum', component: ForumComponent },
+  { path: 'events', component: EventsComponent },
+  { path: 'societies', component: SocieteComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'users', component: UserListComponent },
   { path: 'tokenform' , component: TokenFormComponent},
   { path: 'users/reset-password', component: ResetPasswordComponent },
-  { path: 'forbidden', component: ForbiddenComponent },
-  { path: '**', component: NotfoundComponent },
+  { path: 'users/create', component: CreateUserComponent },
+  { path: 'users/details/:id', component: UserDetailsComponent},
+  { path: '**', component: ForbiddenComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forRoot(routes),
+    TranslateModule.forRoot(),
+  ],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
