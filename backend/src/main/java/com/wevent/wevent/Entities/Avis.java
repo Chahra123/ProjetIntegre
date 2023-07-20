@@ -29,4 +29,8 @@ public class Avis implements Serializable {
     @ManyToOne
     Evenement evenement;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_notif")
+    private Notification notification;
+
 }

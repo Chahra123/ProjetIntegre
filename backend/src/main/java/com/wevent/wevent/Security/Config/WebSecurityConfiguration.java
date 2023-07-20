@@ -55,6 +55,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/events/**").hasAnyAuthority("ADMIN","ORGANISATEUR")
                 .antMatchers("/reservation/*").permitAll()
+               // .antMatchers("/events/**").hasAnyAuthority("ADMIN","ORGANISATEUR")
+                .antMatchers("/events/**").permitAll()
+                //.antMatchers("/users*").hasAnyAuthority("ADMIN","ORGANISATEUR")
+                .antMatchers("/users*").permitAll()
+                .antMatchers("/reservation/**").permitAll()
+                .antMatchers("/notif/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

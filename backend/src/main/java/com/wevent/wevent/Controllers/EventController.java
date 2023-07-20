@@ -23,7 +23,7 @@ public class EventController {
 
     @GetMapping("/{eventId}")
     public ResponseEntity<MessageResponse> getEvent(@PathVariable Long eventId) {
-            return iEventService.getEvent(eventId);
+        return iEventService.getEvent(eventId);
     }
 
     @PostMapping
@@ -44,4 +44,4 @@ public class EventController {
     public void deleteEvent(@PathVariable Long eventId) {
         iEventService.deleteEvent(eventId);
     }
-    }
+}

@@ -31,13 +31,18 @@ public class ReservationController {
 
     }
 
-    @DeleteMapping("{idRes}")
+    @DeleteMapping("/{idRes}")
     public ResponseEntity<?> deleteReservation(@PathVariable("idRes") Long idReservation) {
         return iReservationService.deleteReservation(idReservation);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateReservation(@RequestBody Reservation rs, @PathVariable("id") Long idReservation) {
         return iReservationService.updateReservation(rs, idReservation);
+    }
+
+    @GetMapping("/aff/{idUser}/{idReservation}")
+    public void affecterResrvationAUtislisateur(@PathVariable("idReservation") Long idReservation,@PathVariable("idUser")  long idUser){
+        iReservationService.affecterResrvationAUtislisateur(idReservation, idUser);
     }
 }

@@ -1,11 +1,13 @@
 package com.wevent.wevent.Services;
 
 
-import com.wevent.wevent.Entities.Reservation;
-import com.wevent.wevent.Entities.Utilisateur;
+import com.wevent.wevent.Entities.*;
+import com.wevent.wevent.Repositories.EventRepo;
 import com.wevent.wevent.Repositories.ReservationRepo;
+import com.wevent.wevent.Repositories.UserRepo;
 import com.wevent.wevent.Response.MessageResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ReservationService implements IReservationService {
     private final ReservationRepo reservationRepo;
+    UserRepo userRepo;
+    NotificationService notificationService;
+    EventRepo eventRepo;
 
     @Override
     public List<Reservation> getAllReservations() {
@@ -28,7 +34,16 @@ public class ReservationService implements IReservationService {
         try{
             rs.setDateReservation(new Date());
             reservationRepo.save(rs);
-            return ResponseEntity.ok().body(new MessageResponse("Reservation ajoutée avec succès"));
+            List<Utilisateur> utilisateurs = userRepo.findAll();
+           for(Utilisateur u: utilisateurs){
+                for(Role r: u.getRoles()){
+                    if(r.getNomRole().equals("ADMIN") || r.getNomRole().equals("ORGANISATEUR")){
+                        notificationService.notifForAdd(rs,u);
+                    }
+
+                }
+            }
+            return ResponseEntity.ok().body(new MessageResponse("Reservation effectuée avec succès"));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Erreur d'ajout"));
@@ -44,7 +59,7 @@ public class ReservationService implements IReservationService {
                         .body(new MessageResponse("Reservation introuvable"));
             }
             reservationRepo.deleteById(id);
-           return ResponseEntity.ok().body(new MessageResponse("Reservation supprimée avec succès"));
+           return ResponseEntity.ok().body(new MessageResponse("Reservation annulée avec succès"));
         }catch (Exception e){
           return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Erreur de suppression"));
@@ -59,7 +74,10 @@ public class ReservationService implements IReservationService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new MessageResponse("Reservation introuvable"));
             }
-            resr.setStatutReservation(rs.getStatutReservation());
+            resr.setStatutReservation(rs.isStatutReservation());
+            resr.setNbPlace(rs.getNbPlace());
+            resr.setEmail(rs.getEmail());
+            resr.setNumTel(rs.getNumTel());
             reservationRepo.save(resr);
             return ResponseEntity.ok().body(new MessageResponse("Reservation mise à jour avec succès"));
         }catch (Exception e){
@@ -83,4 +101,34 @@ public class ReservationService implements IReservationService {
         }
 
     }
+    public void affecterResrvationAUtislisateur(Long idReservation, long idUser){
+        Reservation rs = reservationRepo.findById(idReservation).orElse(null);
+        Utilisateur ut = userRepo.findById(idUser).orElse(null);
+        ut.getReservations().add(rs);
+        rs.setUtilisateur(ut);
+        userRepo.save(ut);
+        reservationRepo.save(rs);
+    }
+
+    @Override
+    public void affecterReservationAEvenement(Long idReservation, long idEvenement){
+        Reservation rs = reservationRepo.findById(idReservation).orElse(null);
+        Evenement ev = eventRepo.findById(idEvenement).orElse(null);
+        ev.getReservations().add(rs);
+        rs.setEvenement(ev);
+        eventRepo.save(ev);
+        reservationRepo.save(rs);
+    }
+
+    @Override
+    public int nbrPers(Long idEvenement, Long idReservation){
+        int nbr = 0;
+        Reservation rs = reservationRepo.findById(idReservation).orElse(null);
+        Evenement ev = eventRepo.findById(idEvenement).orElse(null);
+        if(rs.isStatutReservation()){
+            nbr = ev.getNbrePersonnes() - rs.getNbPlace();
+        }
+        return nbr;
+    }
+
 }

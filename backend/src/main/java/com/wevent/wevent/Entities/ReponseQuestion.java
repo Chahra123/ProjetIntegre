@@ -27,4 +27,8 @@ public class ReponseQuestion implements Serializable {
 
     @ManyToOne
     Question question;
+
+    @OneToOne
+    @JoinColumn(name = "idNotif")
+    private Notification notification;
 }

@@ -1,5 +1,6 @@
 package com.wevent.wevent.Repositories;
 
+import com.wevent.wevent.Entities.ERole;
 import com.wevent.wevent.Entities.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -25,6 +26,7 @@ public interface UserRepo extends JpaRepository<Utilisateur,Long> {
             nativeQuery = true)
     int enableUser(String email);
 
+<<<<<<< HEAD
     @Transactional
     @Modifying
     @Query(value = "delete from confirmation_token where utilisateur_id_utilisateur =?1", nativeQuery = true)
@@ -48,4 +50,6 @@ public interface UserRepo extends JpaRepository<Utilisateur,Long> {
     Object getUserByHisLastAndFirstName(long userId);
     Utilisateur findByResetToken(String resetToken);
 
+=======
+>>>>>>> ad5d57069ab7a0b1fc29d7cc1640aa50b24b5ad9
 }

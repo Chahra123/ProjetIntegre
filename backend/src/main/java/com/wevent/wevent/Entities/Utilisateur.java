@@ -1,6 +1,10 @@
 package com.wevent.wevent.Entities;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonInclude;
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> ad5d57069ab7a0b1fc29d7cc1640aa50b24b5ad9
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -61,7 +65,7 @@ public class Utilisateur implements Serializable{
     @OneToMany(mappedBy = "auteur")
     Set<ReponseQuestion> reponseQuestions = new HashSet<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "utilisateur")
     Set<Question> questions = new HashSet<>();
 
     @OneToMany(mappedBy = "commentateur")
@@ -70,9 +74,11 @@ public class Utilisateur implements Serializable{
     @ManyToMany
     Set<Evenement> evenements = new HashSet<>();
 
-    @OneToMany(mappedBy = "utilisateur")
+    @JsonIgnore
+    @OneToMany(mappedBy = "utilisateur",fetch = FetchType.EAGER)
     Set<Reservation> reservations = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "utilisateurs")
     Set<Notification> notifications = new HashSet<>();
 

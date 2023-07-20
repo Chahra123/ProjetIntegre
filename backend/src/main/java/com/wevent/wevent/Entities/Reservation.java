@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,11 +20,20 @@ public class Reservation implements Serializable {
     Long idReservation;
 
     Date dateReservation;
+
+    String email;
+
+    Long numTel;
+
+    Integer nbPlace;
     @ManyToOne
     Utilisateur utilisateur;
 
     @ManyToOne
     Evenement evenement;
 
-    Boolean statutReservation;
+    boolean statutReservation;
+
+    @OneToMany(mappedBy = "reservation")
+    Set<Notification> notifications = new HashSet<>();
 }

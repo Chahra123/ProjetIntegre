@@ -32,7 +32,7 @@ public class Reclamation implements Serializable {
     Evenement evenement;
 
     @OneToOne
-    @JoinColumn(name = "idNotif")
-    private Notification notification;
+    //@JoinColumn(name = "idNotif")
+   private Notification notification;
 
 }
