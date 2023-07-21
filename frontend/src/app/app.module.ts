@@ -57,6 +57,7 @@ import { PopupResetPasswordComponent } from './popup-reset-password/popup-reset-
 import { PopupDeleteUserComponent } from './popup-delete-user/popup-delete-user.component';
 import { PopupUpdateUserComponent } from './popup-update-user/popup-update-user.component';
 import { PopupConfirmResetPwdComponent } from './popup-confirm-reset-pwd/popup-confirm-reset-pwd.component';
+import { PopupConfirmSocietyCreationComponent } from './popup-confirm-society-creation/popup-confirm-society-creation.component';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { PopupConfirmResetPwdComponent } from './popup-confirm-reset-pwd/popup-c
     PopupResetPasswordComponent,
     PopupDeleteUserComponent,
     PopupUpdateUserComponent,
-    PopupConfirmResetPwdComponent    ],
+    PopupConfirmResetPwdComponent,
+    PopupConfirmSocietyCreationComponent    ],
   imports: [
     MatToolbarModule,
     MatIconModule,

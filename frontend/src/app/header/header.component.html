@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="nav-item p-1 rounded">
-                      <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" routerLink="/users"> <i
+                      <a *ngIf="userService.roleMatch(['ADMIN'])" class="nav-link js-scroll-trigger smooth-scroll text-uppercase" routerLink="/users"> <i
                               class='bx bx-book-content'></i>Users</a>
                   </li>
                     <li class="nav-item p-1 rounded">
@@ -35,9 +35,9 @@
                                 class='bx bx-book-content'></i>Events</a>
                     </li>
                     <li class="nav-item p-1 rounded">
-                        <p class="nav-link js-scroll-trigger smooth-scroll text-uppercase" (click)="toggleSociete()" routerLink="/societies">
-                            <i class='bx bx-briefcase-alt'></i>Société
-                        </p>
+                        <a *ngIf="userService.roleMatch(['ADMIN','ORGANISATEUR'])" class="nav-link js-scroll-trigger smooth-scroll text-uppercase" (click)="toggleSociete()" routerLink="/societies">
+                            <i class='bx bx-briefcase-alt'></i>Societies
+                        </a>
 
                     </li>
                     <li class="nav-item p-1 rounded">

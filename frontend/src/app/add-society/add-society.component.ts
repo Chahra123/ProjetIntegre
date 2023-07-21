@@ -1,6 +1,8 @@
+import { PopupConfirmSocietyCreationComponent } from '../popup-confirm-society-creation/popup-confirm-society-creation.component';
 import { Society } from './../_model/Society';
 import { SocieteService } from './../service/societe.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-add-society',
@@ -10,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddSocietyComponent implements OnInit {
 
   society:Society= new Society();
-  constructor(private societeService:SocieteService) { }
+  constructor(private societeService:SocieteService, private matDialog:MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -31,7 +33,10 @@ export class AddSocietyComponent implements OnInit {
 
   openDialogSuccessfullCreation()
   {
-
+    this.matDialog.open(PopupConfirmSocietyCreationComponent,{
+      width : '500px',
+    })
   }
+
 
 }
