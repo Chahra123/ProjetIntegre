@@ -1,0 +1,26 @@
+<div class="col-md-6 offset-md-3">
+  <h3>Update Society</h3>
+  <form (ngSubmit)="onSubmit()">
+  <div class="form-group mt-3">
+    <label>Prénom</label>
+    <input title="prenom" type="text" class="form-control" id ="prenom" [(ngModel)]="society.nomSociete" name="prenom">
+  </div>
+  <div class="form-group mt-3">
+    <label>Nom</label>
+    <input title="nom" type="text" class="form-control" id ="nom" [(ngModel)]="society.logoSociete" name="nom">
+  </div>
+  <div class="form-group mt-3">
+    <label>Email</label>
+    <input title="email" type="text" class="form-control" id ="email" [(ngModel)]="society.email" name="email">
+  </div>
+  <div class="form-group mt-3">
+    <label>Adresse</label>
+    <input title="motDePasse" type="text" class="form-control" id ="motDePasse" [(ngModel)]="society.addresse" name="motDePasse">
+  </div>
+  <div class="form-group mt-3">
+    <label>Numéro Téléphone</label>
+    <input title="numTel" type="number" class="form-control" id ="numTel" [(ngModel)]="society.numTel" name="numTel">
+  </div>
+  <button class="btn btn-success mt-3" type="submit">Mettre à jour</button>
+  </form>
+  </div>

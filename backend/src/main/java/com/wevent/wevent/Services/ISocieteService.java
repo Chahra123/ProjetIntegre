@@ -16,4 +16,6 @@ public interface ISocieteService {
     public ResponseEntity<?> updateSociety(Societe s, Long societeId);
 
     Societe getSociety(Long id);
+
+    ResponseEntity<?> addSocietyWithNoLogo(Societe s);
 }

@@ -1,8 +1,11 @@
+import { PopUpCreateUserComponent } from './../pop-up-create-user/pop-up-create-user.component';
 import { Router } from '@angular/router';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { User } from '../_model/User';
 import { Role } from '../_model/Role';
 import { UserService } from '../service/user.service';
+import { MatDialog } from '@angular/material/dialog'
+
 
 
 @Component({
@@ -20,12 +23,13 @@ export class CreateUserComponent implements OnInit {
   selectedRoles: number[] = [];
   @ViewChild('content')
   modalContent!: TemplateRef<any>;
-  constructor(private userService: UserService, private router:Router) {}
+  constructor(private userService: UserService, private router:Router,private matDialog:MatDialog) {}
 
   ngOnInit(): void {}
   onSubmit() {
     console.log(this.user);
     this.saveUser();
+    this.openDialog();
   }
   saveUser() {
     this.userService.createUser(this.user).subscribe(
@@ -40,7 +44,10 @@ export class CreateUserComponent implements OnInit {
   {
     this.router.navigate(['/users']);
   }
-  openModalCreate() {
-   // this.modalService.open(this.modalContent, { centered: true });
+
+  openDialog(){
+    this.matDialog.open(PopUpCreateUserComponent,{
+      width : '500px',
+    })
   }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { UserAuthService } from '../service/user-auth.service';
+import { User } from '../_model/User';
 
 @Component({
   selector: 'app-token-form',
@@ -11,6 +12,7 @@ import { UserAuthService } from '../service/user-auth.service';
 })
 export class TokenFormComponent implements OnInit {
   verificationCode!: string;
+  user!:User;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -37,6 +39,17 @@ export class TokenFormComponent implements OnInit {
       }
     );
   }
+
+  saveUser()
+  {
+    this.userService.signup(this.user).subscribe(
+      (data) => {
+        console.log("DATAAAA:"+data);
+      },
+      (error) => console.log(error)
+    );
+  }
+
 
   onSubmit() {
     console.log("Verification Code: " + this.verificationCode);

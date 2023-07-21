@@ -43,9 +43,14 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserListComponent } from './user-list/user-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateUserComponent } from './create-user/create-user.component';
-import { CreateSocietyComponent } from './create-society/create-society.component';
 import { ProfileUserComponent } from './profile-user/profile-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { PopUpCreateUserComponent } from './pop-up-create-user/pop-up-create-user.component';
+import { AddSocietyComponent } from './add-society/add-society.component';
+import { UpdateSocietyComponent } from './update-society/update-society.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { TokenFormComponent } from './token-form/token-form.component';
+import { PopupTokenSecurityComponent } from './popup-token-security/popup-token-security.component';
 
 
 @NgModule({
@@ -71,10 +76,15 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     DashComponent,
     UserListComponent,
     CreateUserComponent,
-    CreateSocietyComponent,
     ProfileUserComponent,
     ResetPasswordComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    PopUpCreateUserComponent,
+    AddSocietyComponent,
+    UpdateSocietyComponent,
+    UpdateUserComponent,
+    TokenFormComponent,
+    PopupTokenSecurityComponent
     ],
   imports: [
     MatToolbarModule,

@@ -45,7 +45,7 @@ export class UserService {
   }
   getUserByEmail(email:string):Observable<User>
   {
-    const url = `${this.PATH_OF_API}/email/${email}`;
+    const url = this.PATH_OF_API+"/users/email/"+`${email}`;
     return this.httpclient.get<User>(url);
   }
   createUser(user:User):Observable<Object>{

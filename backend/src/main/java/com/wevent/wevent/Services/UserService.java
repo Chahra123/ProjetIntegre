@@ -65,11 +65,17 @@ public class UserService implements  IUserService, UserDetailsService {
         u.setEmail(userDetails.getEmail());
         u.setNom(userDetails.getNom());
         u.setPrenom(userDetails.getPrenom());
-        u.setMotDePasse(userDetails.getMotDePasse());
+
+        // Chiffrer le mot de passe avant de le stocker
+        String motDePasse = userDetails.getMotDePasse();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String motDePasseCrypte = passwordEncoder.encode(motDePasse);
+        u.setMotDePasse(motDePasseCrypte);
+
         u.setNumTel(userDetails.getNumTel());
         u.setDateNaissance(userDetails.getDateNaissance());
         userRepo.save(u);
-        return ResponseEntity.ok().body(new MessageResponse("Utilisateur mis à jour avec succès"));
+        return ResponseEntity.ok().body(new MessageResponse("User updated successfully"));
     }
 
     @Override
@@ -77,7 +83,7 @@ public class UserService implements  IUserService, UserDetailsService {
         userRepo.deleteUserFromConfirmationToken(userId);
         userRepo.deleteUserFromUserRoles(userId);
         userRepo.deleteById(userId);
-        return ResponseEntity.ok().body(new MessageResponse("Utilisateur supprimé avec succès"));
+        return ResponseEntity.ok().body(new MessageResponse("User deleted successfully"));
     }
 
     @Override

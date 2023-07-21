@@ -1,3 +1,4 @@
+import { AddSocietyComponent } from './../add-society/add-society.component';
 import { EventService } from './../service/event.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,8 @@ import { SocieteService } from '../service/societe.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Society } from '../_model/Society';
 import { Evenement } from '../_model/Evenement';
+import { MatDialog } from '@angular/material/dialog'
+
 
 @Component({
   selector: 'app-societe',
@@ -17,7 +20,7 @@ export class SocieteComponent implements OnInit {
   isOpen: boolean[] = [];
   societies:Society[]=[];
   eventsForSociety: Evenement[][] = [];
-  constructor(private societeService:SocieteService, private router:Router, private eventService:EventService) { }
+  constructor(private societeService:SocieteService, private router:Router, private eventService:EventService, private matDialog:MatDialog) { }
 
   ngOnInit(): void {
     this.getSocieties();
@@ -39,19 +42,7 @@ export class SocieteComponent implements OnInit {
     }
   }
 
-  toggleRegistration(){
-    if (this.showRegistration==false) {
-      this.showRegistration=true
-    }else{
-      this.showRegistration=false
-    }
-    if (  this.showSociete==false) {
-      this.showSociete=true
-    }else{
-      this.showSociete=false
-    }
 
-  }
   private getSocieties() {
     this.societeService.getSocietiesList().subscribe((data) => {
       this.societies = data;
@@ -65,7 +56,6 @@ export class SocieteComponent implements OnInit {
    this.societeService.deleteSociety(id).subscribe(data=>{
     console.log(data);
     this.getSocieties();
-    this.openModalDelete();
    })
   }
   viewSociety(id:number)
@@ -75,9 +65,6 @@ export class SocieteComponent implements OnInit {
   addSociety() {
     this.router.navigate(['/users/create']);
   }
-  openModalDelete() {
-   // this.modalService.open(this.modalContent, { centered: true });
-  }
 
   confirmDeleteSociety(userId:number) {
     if (confirm("Voulez-vous vraiment supprimer la société?")) {
@@ -85,12 +72,6 @@ export class SocieteComponent implements OnInit {
     }
   }
 
- // Function to initialize the eventsForSociety array with empty arrays
- private initEventsForSociety(): void {
-  this.eventsForSociety = this.societies.map(() => []);
-}
-
-// Function to fetch events for a specific society and store them in the eventsForSociety array
 private getEventsForSociety(societyId: number, index: number): void {
   this.eventService.getEventsForSociety(societyId).subscribe(
     (events: Evenement[]) => {
@@ -101,6 +82,16 @@ private getEventsForSociety(societyId: number, index: number): void {
     }
   );
 }
-
+openDialog(){
+  this.matDialog.open(AddSocietyComponent,{
+    width : '500px',
+  })
 }
 
+confirmDeleteUser(userId:number) {
+  if (confirm("Do you really want to delete the society?")) {
+    this.deleteSociety(userId);
+  }
+}
+
+}

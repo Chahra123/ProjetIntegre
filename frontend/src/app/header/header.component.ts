@@ -59,13 +59,19 @@ export class HeaderComponent implements OnInit {
         $('.navbar-collapse').toggle();
       }
     );
+    console.log('Before API call');
+
     const token = localStorage.getItem('jwtToken');
     console.log('Token:', token);
+
     if (token) {
       const decodedToken: any = jwt_decode(token);
-      const email = decodedToken.sub;
-      console.log('Email:', email);
-      this.userService.getUserByEmail(email).subscribe(
+      const user = decodedToken.sub;
+      const userJson = JSON.parse(user);
+      console.log('--USER EN JSON:', userJson);
+      console.log('--USER EMAIL:', userJson.username);
+
+      this.userService.getUserByEmail(userJson.username).subscribe(
         (data) => {
           console.log('User:', data);
           this.loggedInUser = data;
@@ -73,14 +79,15 @@ export class HeaderComponent implements OnInit {
           console.log('LoggedInUserName:', this.loggedInUserName);
         },
         (error) => {
-          console.error('Error fetching user:', error);
+          console.error('Error fetching user data:', error);
+          this.loggedInUserName = "TEST"; // Handle the error by setting a default value
         }
       );
-    }
-    else{
-      this.loggedInUserName = "TEST"
-    }
 
+    } else {
+      this.loggedInUserName = "TEST";
+    }
+  console.log('After API call');
   }
   public isLoggedIn() {
     return this.userAuthService.isLoggedIn();
@@ -88,5 +95,9 @@ export class HeaderComponent implements OnInit {
   public logout() {
     this.userAuthService.clear();
     this.router.navigate(['/home']);
+  }
+
+  detailsUser(id: number) {
+    this.router.navigate(['users/details', id]);
   }
 }

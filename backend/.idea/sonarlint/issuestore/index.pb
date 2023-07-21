@@ -7,8 +7,6 @@ b
 2src/main/java/com/wevent/wevent/Entities/Role.java,a\f\af57cf09b83c16b26ee1b2af7e9f8eba1b0c26ad
 v
 Fsrc/main/java/com/wevent/wevent/Controllers/ReservationController.java,c\a\ca6e100cbc981015dfaac74f3634e1afed36584c
-g
-7src/main/java/com/wevent/wevent/Request/JwtRequest.java,b\0\b0b886cfd202d058991ec083b95b51cffe6b6598
 j
 :src/main/java/com/wevent/wevent/Request/LogOutRequest.java,2\4\24f818499a00b4bae7ce78b3797205764af2d39c
 r
@@ -21,8 +19,6 @@ v
 Fsrc/main/java/com/wevent/wevent/Services/ConfirmationTokenService.java,3\b\3bc5e2b8ae8d505ada6cb861c557cbf441d6a3bd
 j
 :src/main/java/com/wevent/wevent/Services/EmailService.java,1\d\1d56b1eaf2604a18108f90c4e78fbbf0fa46e2f4
-h
-8src/main/java/com/wevent/wevent/Services/JwtService.java,7\d\7d0f704fdc3a165ae479a9a832138c6e93c91d49
 i
 9src/main/java/com/wevent/wevent/Services/RoleService.java,e\b\eb7d56a1e747a8f02554bbdc2cfa5891fe9906f4
 q
@@ -31,7 +27,3 @@ q
 Asrc/main/java/com/wevent/wevent/Services/IReclamationService.java,d\c\dc454ec29ab22c2919654d8bd6a1c588798a1557
 i
 9src/main/java/com/wevent/wevent/Entities/Utilisateur.java,5\a\5ae7cd48b721b1b29b1351e41955e0c74d018825
-i
-9src/main/java/com/wevent/wevent/Services/UserService.java,c\8\c895c64341a1de484d58e7d6fd66643ebdb18f5c
-j
-:src/main/java/com/wevent/wevent/Repositories/UserRepo.java,c\0\c08d7a8ba5639ea2307a4ba9bf079f399cb838f1

@@ -70,29 +70,14 @@
                         <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#contact"> <i
                                 class='bx bx-envelope'></i>Feedbacks</a>
                     </li>
-
-                    <!-- <li class="nav-item p-1 rounded">
-                        <mat-radio-group  [(ngModel)]="language" style="margin-top: 5px;"
-                            (change)="languageChange($event)" aria-label="Select a language">
-                            <mat-radio-button value="en" >
-                                Dark Mode
-                            </mat-radio-button>
-                            <mat-radio-button value="fr" class="pl-3">
-                                Light Mode
-                            </mat-radio-button>
-                        </mat-radio-group>
-
-                    </li> -->
                     <li class="nav-item p-1 rounded">
-                      <div class="dropdown">
+                      <div class="dropdown" *ngIf="loggedInUserName">
                         <button class="dropdown-toggle nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="material-icons">person</i>
                           <span>{{ loggedInUserName }}</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <ng-container *ngIf="loggedInUser">
-                            <a class="dropdown-item" [routerLink]="['/users/details', loggedInUser.idUtilisateur]">Profile</a>
-                          </ng-container>
+                          <a class="dropdown-item" (click)="detailsUser(loggedInUser.idUtilisateur)">Profile</a>
                           <a class="dropdown-item" routerLink="/reservations" href="#">Reservations</a>
                         </div>
                       </div>

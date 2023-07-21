@@ -4,28 +4,26 @@
       <h3 class="text-center">Create User</h3>
       <form (ngSubmit)="onSubmit()" style="margin-top: 50px;">
         <div class="form-group" style="margin-top: 20px;">
-          <label for="prenom">Prénom</label>
-          <input type="text" class="form-control" id="prenom" [(ngModel)]="user.prenom" name="prenom" required>
+          <label for="prenom">Name</label>
+          <input type="text" class="form-control" id="prenom" [(ngModel)]="society.nomSociete" name="prenom" required>
         </div>
         <div class="form-group" style="margin-top: 20px;">
-          <label for="nom">Nom</label>
-          <input type="text" class="form-control" id="nom" [(ngModel)]="user.nom" name="nom" required>
+          <label for="nom">Logo</label>
+          <input type="file" class="form-control" id="nom" [(ngModel)]="society.logoSociete" name="nom" required>
+        </div>
+
+
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="email">Phone number </label>
+          <input type="number" class="form-control" id="email" [(ngModel)]="society.numTel" name="email" required>
         </div>
         <div class="form-group" style="margin-top: 20px;">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" required>
+          <label for="motDePasse">Email</label>
+          <input type="text" class="form-control" id="motDePasse" [(ngModel)]="society.email" name="motDePasse" required>
         </div>
         <div class="form-group" style="margin-top: 20px;">
-          <label for="motDePasse">Mot de passe</label>
-          <input type="password" class="form-control" id="motDePasse" [(ngModel)]="user.motDePasse" name="motDePasse" required>
-        </div>
-        <div class="form-group" style="margin-top: 20px;">
-          <label for="dateNaissance">Date de naissance</label>
-          <input type="date" class="form-control" id="dateNaissance" [(ngModel)]="user.dateNaissance" name="dateNaissance" required>
-        </div>
-        <div class="form-group" style="margin-top: 20px;">
-          <label for="numTel">Numéro Téléphone</label>
-          <input type="number" class="form-control" id="numTel" [(ngModel)]="user.numTel" name="numTel" required>
+          <label for="dateNaissance">Address</label>
+          <input type="date" class="form-control" id="dateNaissance" [(ngModel)]="society.addresse" name="dateNaissance" required>
         </div>
         <div class="text-center">
           <button class="btn btn-success" type="submit">Ajouter</button>

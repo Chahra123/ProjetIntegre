@@ -56,6 +56,9 @@ public class SocieteService implements ISocieteService{
             }
             soc.setNomSociete(s.getNomSociete());
             soc.setLogoSociete(s.getLogoSociete());
+            soc.setEmail(s.getEmail());
+            soc.setAddresse(s.getAddresse());
+            soc.setNumTel(s.getNumTel());
             societeRepo.save(soc);
             return ResponseEntity.ok().body(new MessageResponse("Societé mise à jour avec succès"));
         }catch (Exception e){
@@ -67,5 +70,27 @@ public class SocieteService implements ISocieteService{
     @Override
     public Societe getSociety(Long id) {
         return societeRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public ResponseEntity<?> addSocietyWithNoLogo(Societe s) {
+        Societe soc = societeRepo.findByNomSociete(s.getNomSociete());
+        if (societeRepo.existsByNomSociete(s.getNomSociete()))
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse("Societé existe deja"));
+        }
+
+        soc = new Societe();
+        soc.setNumTel(s.getNumTel());
+        soc.setNomSociete(s.getNomSociete());
+        s.setAddresse(s.getAddresse());
+        s.setEmail(s.getEmail());
+
+        societeRepo.save(soc);
+
+        return ResponseEntity.ok().body(new MessageResponse("Societé ajoutée avec succès"));
+
+
     }
 }

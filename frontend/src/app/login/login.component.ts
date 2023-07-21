@@ -3,6 +3,8 @@ import { UserService } from '../service/user.service';
 import { UserAuthService } from '../service/user-auth.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog'
+import { PopupTokenSecurityComponent } from '../popup-token-security/popup-token-security.component';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private userAuthService: UserAuthService,
-    private router:Router
+    private router:Router, private matDialog:MatDialog
   ) {}
 
 
@@ -55,18 +57,19 @@ export class LoginComponent implements OnInit {
   }
   saveUser1() {
     this.userService.checkEmailExists(this.user.email).subscribe((exists) => {
+      console.log("Does it exist:"+exists);
       if (exists) {
-        this.emailExistsError = true; // Définir la variable à true si l'e-mail existe déjà
+        this.emailExistsError = true;
       } else {
         // L'e-mail n'existe pas, procéder à l'enregistrement de l'utilisateur
         this.userService.signup(this.user).subscribe(
           (data) => {
-            console.log(data);
-            // Rediriger vers la page de tokenform ou effectuer d'autres actions
-            this.router.navigate(['/tokenform']);
+            console.log("DATAAAA:"+data);
+
           },
           (error) => console.log(error)
         );
+        this.router.navigate(['/tokenform']);
       }
     });
   }
@@ -80,7 +83,7 @@ export class LoginComponent implements OnInit {
         // Handle success or show a notification to the user
         console.log('Password reset email sent:', response);
         this.router.navigate(['users/reset-password']);
-        this.openModalMail();
+        this.openDialogToken();
       },
       (error) => {
         // Handle error or show an error message to the user
@@ -88,8 +91,12 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  openModalMail() {
-    //this.modalService.open(this.modalContent, { centered: true });
+
+
+  openDialogToken(){
+    this.matDialog.open(PopupTokenSecurityComponent,{
+      width : '500px',
+    })
   }
 
 }

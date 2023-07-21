@@ -25,6 +25,13 @@ public class SocieteController {
         return iSocieteService.addSociety(s);
     }
 
+
+    @PostMapping("nologo")
+    public ResponseEntity<?> addSocietyWithNoLogo(@RequestBody Societe s)
+    {
+        return iSocieteService.addSocietyWithNoLogo(s);
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteSociety(@PathVariable Long id)
     {

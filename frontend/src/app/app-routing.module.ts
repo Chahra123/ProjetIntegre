@@ -22,6 +22,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AddSocietyComponent } from './add-society/add-society.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { UpdateSocietyComponent } from './update-society/update-society.component';
 
 const routes: Routes = [
   { path: '', component:HomeComponent },
@@ -36,6 +39,7 @@ const routes: Routes = [
   { path: 'forum', component: ForumComponent },
   { path: 'events', component: EventsComponent },
   { path: 'societies', component: SocieteComponent },
+  { path: 'societies/create', component: AddSocietyComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },
   { path: 'users', component: UserListComponent },
@@ -43,6 +47,9 @@ const routes: Routes = [
   { path: 'users/reset-password', component: ResetPasswordComponent },
   { path: 'users/create', component: CreateUserComponent },
   { path: 'users/details/:id', component: UserDetailsComponent},
+  { path: 'users/update/:id', component: UpdateUserComponent},
+  { path: 'societies/update/:id', component: UpdateSocietyComponent},
+
   { path: '**', component: ForbiddenComponent}
 ];
 

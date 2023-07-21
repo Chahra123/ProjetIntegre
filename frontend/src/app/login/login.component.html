@@ -118,7 +118,7 @@
               <div *ngIf="email.hasError('pattern')">
                 Please enter a valid email address.
               </div>
-              <div *ngIf="emailExistsError" class="text-danger">
+              <div *ngIf="emailExistsError==true" class="text-danger">
                 Email already exists. Please choose a different email.
               </div>
             </div>

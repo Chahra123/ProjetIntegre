@@ -38,7 +38,7 @@ public class RegistrationService {
         }
 
         Collection<Role> roles = new ArrayList<>();
-        Role clientRole = new Role(2L, "CLIENT");
+        Role clientRole = new Role(3L, "CLIENT");
         roles.add(clientRole);
 
         try {

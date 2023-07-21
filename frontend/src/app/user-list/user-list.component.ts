@@ -5,6 +5,7 @@ import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog'
 import { CreateUserComponent } from '../create-user/create-user.component';
+import { UpdateUserComponent } from '../update-user/update-user.component';
 
 //import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -60,6 +61,13 @@ export class UserListComponent implements OnInit {
   }
   openDialog(){
     this.matDialog.open(CreateUserComponent,{
+      width : '500px',
+    })
+  }
+
+
+  openDialogUpdate(){
+    this.matDialog.open(UpdateUserComponent,{
       width : '500px',
     })
   }

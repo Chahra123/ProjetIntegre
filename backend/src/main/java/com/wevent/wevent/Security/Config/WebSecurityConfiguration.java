@@ -50,14 +50,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.GET,"/users/check-email-exists/*").permitAll()
                 .antMatchers(HttpMethod.GET,"/users/email/*").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/*").permitAll()
+
                 .antMatchers(HttpMethod.GET,"/users").permitAll()
-                .antMatchers(HttpMethod.POST,"/users").hasAnyAuthority("ADMIN","ORGANISATEUR")
-                .antMatchers(HttpMethod.PUT,"/users**").hasAnyAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/users**").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/users").permitAll()
+                .antMatchers(HttpMethod.PUT,"/users/*").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/users/*").permitAll()
 
                 .antMatchers("/events/**").permitAll()
                 .antMatchers("/reservation/*").permitAll()
                 .antMatchers("/societies**").permitAll()
+                .antMatchers("/societies/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
