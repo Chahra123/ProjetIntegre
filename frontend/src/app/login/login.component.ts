@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog'
 import { PopupTokenSecurityComponent } from '../popup-token-security/popup-token-security.component';
+import { PopupWarningEmailComponent } from '../popup-warning-email/popup-warning-email.component';
+import { PopupResetPasswordComponent } from '../popup-reset-password/popup-reset-password.component';
 
 @Component({
   selector: 'app-login',
@@ -60,8 +62,10 @@ export class LoginComponent implements OnInit {
       console.log("Does it exist:"+exists);
       if (exists) {
         this.emailExistsError = true;
-      } else {
-        // L'e-mail n'existe pas, procéder à l'enregistrement de l'utilisateur
+        this.openDialogWarningEmail();
+      }
+      else
+      {
         this.userService.signup(this.user).subscribe(
           (data) => {
             console.log("DATAAAA:"+data);
@@ -70,6 +74,7 @@ export class LoginComponent implements OnInit {
           (error) => console.log(error)
         );
         this.router.navigate(['/tokenform']);
+        this.openDialogToken();
       }
     });
   }
@@ -80,10 +85,11 @@ export class LoginComponent implements OnInit {
 
     this.userService.forgotPassword(email).subscribe(
       (response: any) => {
-        // Handle success or show a notification to the user
-        console.log('Password reset email sent:', response);
+        console.log('Password reset email sent*************:', response);
+        this.openDialogResetPwd()
         this.router.navigate(['users/reset-password']);
-        this.openDialogToken();
+
+
       },
       (error) => {
         // Handle error or show an error message to the user
@@ -95,6 +101,20 @@ export class LoginComponent implements OnInit {
 
   openDialogToken(){
     this.matDialog.open(PopupTokenSecurityComponent,{
+      width : '500px',
+    })
+  }
+
+  openDialogWarningEmail()
+  {
+    this.matDialog.open(PopupWarningEmailComponent,{
+      width : '500px',
+    })
+  }
+
+  openDialogResetPwd()
+  {
+    this.matDialog.open(PopupResetPasswordComponent,{
       width : '500px',
     })
   }

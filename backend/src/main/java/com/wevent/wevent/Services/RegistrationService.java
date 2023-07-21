@@ -75,8 +75,7 @@ public class RegistrationService {
             throw new IllegalStateException("Token Expiré");
         }
         confirmationTokenService.setConfirmedAt(token);
-        userService.enableUser(
-                confirmationToken.getUtilisateur().getEmail());
+
         return "confirmed";
     }
     public String buildEmail(String name,String link) {

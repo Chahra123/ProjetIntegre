@@ -16,7 +16,6 @@ public interface IUserService {
     ResponseEntity<?> updateUser(Long userId, Utilisateur utilisateur);
     ResponseEntity<?> deleteUser(Long userId);
     void addRoleToUser(String email, String nomRole);
-    int enableUser(String email);
     Utilisateur getUser(Long userId);
     Object getUserByHisLastAndFirstName(Long userId);
 

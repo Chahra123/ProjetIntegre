@@ -95,11 +95,7 @@ public class UserService implements  IUserService, UserDetailsService {
         userRepo.save(utilisateur);
     }
 
-    @Override
-    public int enableUser(String email) {
-        return userRepo.enableUser(email);
 
-    }
 
     @Override
     public ResponseEntity<?> addUser(Utilisateur utilisateur) {

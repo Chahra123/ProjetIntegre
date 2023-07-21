@@ -51,6 +51,9 @@ import { UpdateSocietyComponent } from './update-society/update-society.componen
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { TokenFormComponent } from './token-form/token-form.component';
 import { PopupTokenSecurityComponent } from './popup-token-security/popup-token-security.component';
+import { PopupWarningEmailComponent } from './popup-warning-email/popup-warning-email.component';
+import { PoppTokenConfirmedComponent } from './popp-token-confirmed/popp-token-confirmed.component';
+import { PopupResetPasswordComponent } from './popup-reset-password/popup-reset-password.component';
 
 
 @NgModule({
@@ -84,7 +87,10 @@ import { PopupTokenSecurityComponent } from './popup-token-security/popup-token-
     UpdateSocietyComponent,
     UpdateUserComponent,
     TokenFormComponent,
-    PopupTokenSecurityComponent
+    PopupTokenSecurityComponent,
+    PopupWarningEmailComponent,
+    PoppTokenConfirmedComponent,
+    PopupResetPasswordComponent
     ],
   imports: [
     MatToolbarModule,

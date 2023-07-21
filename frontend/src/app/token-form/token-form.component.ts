@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { UserAuthService } from '../service/user-auth.service';
 import { User } from '../_model/User';
+import { PoppTokenConfirmedComponent } from '../popp-token-confirmed/popp-token-confirmed.component';
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-token-form',
@@ -17,7 +19,7 @@ export class TokenFormComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private userAuthService:UserAuthService
+    private userAuthService:UserAuthService, private matDialog:MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class TokenFormComponent implements OnInit {
   {
     this.userService.signup(this.user).subscribe(
       (data) => {
-        console.log("DATAAAA:"+data);
+        console.log(data);
       },
       (error) => console.log(error)
     );
@@ -54,7 +56,16 @@ export class TokenFormComponent implements OnInit {
   onSubmit() {
     console.log("Verification Code: " + this.verificationCode);
     this.confirmToken(this.verificationCode);
+    this.openDialogTokenConfirmed();
     this.router.navigate(['/login']);
+
+  }
+
+  openDialogTokenConfirmed()
+  {
+    this.matDialog.open(PoppTokenConfirmedComponent,{
+      width : '500px',
+    })
   }
 
 }

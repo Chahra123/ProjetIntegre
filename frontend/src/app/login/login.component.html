@@ -9,14 +9,13 @@
         <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" ngModel name="userName" id="userName" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <input type="email" class="form-control" id="exampleInputEmail1" ngModel name="userName" id="userName"  #userName="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
           </div>
-          <div *ngIf="loginForm.controls['userName'].errors && (loginForm.controls['userName'].dirty || loginForm.controls['userName'].touched)" class="text-danger">
-            <div *ngIf="loginForm.controls['userName'].hasError('required')">
+          <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="text-danger">
+            <div *ngIf="userName.hasError('required')">
               Email is required.
             </div>
-            <div *ngIf="loginForm.controls['userName'].hasError('pattern')">
+            <div *ngIf="userName.hasError('pattern')">
               Please enter a valid email address.
             </div>
           </div>
@@ -109,7 +108,6 @@
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" required #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div *ngIf="email.errors && (email.dirty || email.touched)" class="text-danger">
               <div *ngIf="email.hasError('required')">
@@ -118,7 +116,7 @@
               <div *ngIf="email.hasError('pattern')">
                 Please enter a valid email address.
               </div>
-              <div *ngIf="emailExistsError==true" class="text-danger">
+              <div *ngIf="emailExistsError" class="text-danger">
                 Email already exists. Please choose a different email.
               </div>
             </div>
