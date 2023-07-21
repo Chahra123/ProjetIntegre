@@ -25,6 +25,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AddSocietyComponent } from './add-society/add-society.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UpdateSocietyComponent } from './update-society/update-society.component';
+import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component:HomeComponent },
@@ -39,16 +40,16 @@ const routes: Routes = [
   { path: 'forum', component: ForumComponent },
   { path: 'events', component: EventsComponent },
   { path: 'societies', component: SocieteComponent },
-  { path: 'societies/create', component: AddSocietyComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'users', component: UserListComponent },
+  { path: 'societies/create', component: AddSocietyComponent, canActivate:[AuthGuard],data:{roles:['ADMIN','ORGANISATEUR']}},
+  { path: 'contact', component: ContactComponent,canActivate:[AuthGuard],data:{roles:['ADMIN','ORGANISATEUR']} },
+  { path: 'about', component: AboutComponent, canActivate:[AuthGuard],data:{roles:['ADMIN','ORGANISATEUR']} },
+  { path: 'users', component: UserListComponent, canActivate:[AuthGuard],data:{roles:['ADMIN','ORGANISATEUR']} },
   { path: 'tokenform' , component: TokenFormComponent},
-  { path: 'users/reset-password', component: ResetPasswordComponent },
-  { path: 'users/create', component: CreateUserComponent },
+  { path: 'users/reset-password', component: ResetPasswordComponent},
+  { path: 'users/create', component: CreateUserComponent , canActivate:[AuthGuard],data:{roles:['ADMIN','ORGANISATEUR']} },
   { path: 'users/details/:id', component: UserDetailsComponent},
-  { path: 'users/update/:id', component: UpdateUserComponent},
-  { path: 'societies/update/:id', component: UpdateSocietyComponent},
+  { path: 'users/update/:id', component: UpdateUserComponent, canActivate:[AuthGuard],data:{roles:['ADMIN','ORGANISATEUR']} },
+  { path: 'societies/update/:id', component: UpdateSocietyComponent, canActivate:[AuthGuard],data:{roles:['ADMIN','ORGANISATEUR']} },
 
   { path: '**', component: ForbiddenComponent}
 ];

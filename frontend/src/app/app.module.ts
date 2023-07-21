@@ -54,6 +54,9 @@ import { PopupTokenSecurityComponent } from './popup-token-security/popup-token-
 import { PopupWarningEmailComponent } from './popup-warning-email/popup-warning-email.component';
 import { PoppTokenConfirmedComponent } from './popp-token-confirmed/popp-token-confirmed.component';
 import { PopupResetPasswordComponent } from './popup-reset-password/popup-reset-password.component';
+import { PopupDeleteUserComponent } from './popup-delete-user/popup-delete-user.component';
+import { PopupUpdateUserComponent } from './popup-update-user/popup-update-user.component';
+import { PopupConfirmResetPwdComponent } from './popup-confirm-reset-pwd/popup-confirm-reset-pwd.component';
 
 
 @NgModule({
@@ -90,7 +93,10 @@ import { PopupResetPasswordComponent } from './popup-reset-password/popup-reset-
     PopupTokenSecurityComponent,
     PopupWarningEmailComponent,
     PoppTokenConfirmedComponent,
-    PopupResetPasswordComponent    ],
+    PopupResetPasswordComponent,
+    PopupDeleteUserComponent,
+    PopupUpdateUserComponent,
+    PopupConfirmResetPwdComponent    ],
   imports: [
     MatToolbarModule,
     MatIconModule,

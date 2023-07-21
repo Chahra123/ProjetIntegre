@@ -1,3 +1,4 @@
+import { PopupDeleteUserComponent } from './../popup-delete-user/popup-delete-user.component';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { User } from '../_model/User';
@@ -6,8 +7,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog'
 import { CreateUserComponent } from '../create-user/create-user.component';
 import { UpdateUserComponent } from '../update-user/update-user.component';
-
-//import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-user-list',
@@ -20,12 +20,37 @@ export class UserListComponent implements OnInit {
   showRegistration: boolean = false;
   isOpen: boolean[] = [];
   currentUserID!: number;
+  isCurrentUser:boolean =false;
   @ViewChild('content')
   modalContent!: TemplateRef<any>;
+  loggedInUser!:User;
   constructor(private userService: UserService, private router: Router, private httpClient:HttpClient, private matDialog:MatDialog) {}
 
   ngOnInit(): void {
     this.getUsers();
+
+    const token = localStorage.getItem('jwtToken');
+    console.log('Token:', token);
+
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      const user = decodedToken.sub;
+      const userJson = JSON.parse(user);
+      console.log('--USER EN JSON:', userJson);
+      console.log('--USER EMAIL:', userJson.username);
+
+      this.userService.getUserByEmail(userJson.username).subscribe(
+        (data) => {
+          console.log('User:', data);
+          this.loggedInUser = data;
+        },
+        (error) => {
+          console.error('Error fetching user data:', error);
+        }
+      );
+
+    }
+
   }
   private getUsers() {
     this.userService.getUsersList().subscribe((data) => {
@@ -37,10 +62,15 @@ export class UserListComponent implements OnInit {
   }
   deleteUser(id:number)
   {
+    if(this.loggedInUser.idUtilisateur==id)
+    {
+      alert("Vous ne pouvez pas supprimer votre compte");
+      this.isCurrentUser=true;
+      return;
+    }
    this.userService.deleteUser(id).subscribe(data=>{
     console.log(data);
     this.getUsers();
-    this.openModalDelete();
    })
   }
   viewUser(id:number)
@@ -50,14 +80,12 @@ export class UserListComponent implements OnInit {
   addUser() {
     this.router.navigate(['/users/create']);
   }
-  openModalDelete() {
-   // this.modalService.open(this.modalContent, { centered: true });
-  }
 
   confirmDeleteUser(userId:number) {
     if (confirm("Voulez-vous vraiment supprimer l'utilisateur?")) {
       this.deleteUser(userId);
     }
+    this.openDialogDelete();
   }
   openDialog(){
     this.matDialog.open(CreateUserComponent,{
@@ -68,6 +96,12 @@ export class UserListComponent implements OnInit {
 
   openDialogUpdate(){
     this.matDialog.open(UpdateUserComponent,{
+      width : '500px',
+    })
+  }
+
+  openDialogDelete(){
+    this.matDialog.open(PopupDeleteUserComponent,{
       width : '500px',
     })
   }

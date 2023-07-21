@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   language:any="";
   loggedInUserName!:string;
   loggedInUser!:User;
-  constructor(private _translateService: TranslateService,private authService: AuthService,private SocieteService: SocieteService, private router:Router , private userAuthService:UserAuthService, private httpClient: HttpClient, private userService:UserService) {
+  constructor(private _translateService: TranslateService,private authService: AuthService,private SocieteService: SocieteService, private router:Router , private userAuthService:UserAuthService, private httpClient: HttpClient, public userService:UserService) {
 
     if(localStorage.getItem("lang")){
       this.language=localStorage.getItem("lang");
@@ -96,5 +96,8 @@ export class HeaderComponent implements OnInit {
 
   detailsUser(id: number) {
     this.router.navigate(['users/details', id]);
+  }
+  updateUser(id: number) {
+    this.router.navigate(['users/update', id]);
   }
 }
