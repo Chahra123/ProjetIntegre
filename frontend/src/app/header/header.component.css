@@ -1,12 +1,19 @@
+
+Rania Ghazouani
 li:hover,.home:hover {
     background-color: #0c3793;
     font-weight: 200;
 }
 
-i:hover,a:hover {
+i:hover {
     background-color: #0c3793d8;
     border-radius: 3px;
 }
+a:hover {
+  background-color: white;
+  border-radius: 3px;
+}
+
 nav{
     background-color: #010C80;
 }
@@ -31,7 +38,7 @@ a{
   margin-bottom: 2px;
   transition: 0.3s;
   font-size: inherit;
-  color: #FFEDD8;
+  color: #0c3793d8;
 }
 
 li{
@@ -47,8 +54,9 @@ li{
   background-color: red;
 }
 
-
-
+.mat-icon{
+    margin-top: 2px;
+}
 
 
 .dropdown {
@@ -73,9 +81,10 @@ cursor: pointer;
 .dropdown-menu {
 position: absolute;
 top: 100%;
-left: 0;
+left: -2;
 z-index: 1;
 display: none;
+margin-right: 20px;
 }
 
 .dropdown-menu.show {

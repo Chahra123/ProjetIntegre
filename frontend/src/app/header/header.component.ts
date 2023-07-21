@@ -80,12 +80,9 @@ export class HeaderComponent implements OnInit {
         },
         (error) => {
           console.error('Error fetching user data:', error);
-          this.loggedInUserName = "TEST"; // Handle the error by setting a default value
         }
       );
 
-    } else {
-      this.loggedInUserName = "TEST";
     }
   console.log('After API call');
   }

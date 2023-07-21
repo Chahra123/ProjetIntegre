@@ -70,8 +70,8 @@
                         <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#contact"> <i
                                 class='bx bx-envelope'></i>Feedbacks</a>
                     </li>
-                    <li class="nav-item p-1 rounded">
-                      <div class="dropdown" *ngIf="loggedInUserName">
+                    <li class="nav-item p-1 rounded" *ngIf="loggedInUserName">
+                      <div class="dropdown">
                         <button class="dropdown-toggle nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="material-icons">person</i>
                           <span>{{ loggedInUserName }}</span>
@@ -82,6 +82,7 @@
                         </div>
                       </div>
                     </li>
+
 
 
                 </ul>

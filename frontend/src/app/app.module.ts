@@ -90,8 +90,7 @@ import { PopupResetPasswordComponent } from './popup-reset-password/popup-reset-
     PopupTokenSecurityComponent,
     PopupWarningEmailComponent,
     PoppTokenConfirmedComponent,
-    PopupResetPasswordComponent
-    ],
+    PopupResetPasswordComponent    ],
   imports: [
     MatToolbarModule,
     MatIconModule,

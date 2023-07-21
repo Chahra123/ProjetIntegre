@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EventService {
-  private PATH_OF_API = 'http://localhost:8754/events'; // Replace with your back-end API base URL.
+  private PATH_OF_API = 'http://localhost:8754/events';
 
   constructor(private http: HttpClient) { }
 

@@ -82,12 +82,12 @@ export class LoginComponent implements OnInit {
   forgotPassword(loginForm: NgForm) {
     // Get the email from the form
     const email = loginForm.value.userName;
+    this.openDialogResetPwd()
+
 
     this.userService.forgotPassword(email).subscribe(
       (response: any) => {
         console.log('Password reset email sent*************:', response);
-        this.openDialogResetPwd()
-        this.router.navigate(['users/reset-password']);
 
 
       },
